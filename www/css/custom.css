@@ -1,0 +1,147 @@
+
+
+/*#2C2C2C (угольный серый) — основной текст, тёмные блоки;*/
+
+/*#7D7D7D (средний серый) — подзаголовки, иконки;*/
+
+/*#0FA0D7 (яркий голубой) — кнопки, гиперссылки, акценты;*/
+
+/*#F5F5F5 (почти белый) — фон страниц;*/
+
+/*#E0E0E0 (светло‑серый) — границы, разделители.*/
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body{
+    background-color: #F5F5F5;
+    margin-bottom: 60px; /* высота футера */
+    /*margin-top: 130px;*/
+}
+a{
+    color: #0FA0D7;
+}
+.nav-link{
+    color: #0FA0D7;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* высота футера */
+    background-color: #f5f5f5;
+}
+
+.text_block{
+    white-space: pre-wrap;
+}
+
+
+
+/* Оформление боковой панели */
+#side-checkbox {
+    display: none;
+}
+.side-panel {
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: -360px;
+    background: darkgray;
+    transition: all 0.5s;
+    width: 320px;
+    height: 100vh;
+    box-shadow: 10px 0 20px rgba(0,0,0,0.4);
+    color: #FFF;
+    padding: 40px 20px;
+}
+.side-title {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid darkgray;
+}
+
+#side-checkbox:checked + .side-panel {
+    left: 0;
+}
+/* Оформление кнопки на панели */
+.side-button-2 {
+    font-size: 30px;
+    border-radius: 20px;
+    position: absolute;
+    z-index: 1;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    transform: rotate(45deg);
+    color: #BFE2FF;
+    transition: all 280ms ease-in-out;
+}
+.side-button-2:hover {
+    transform: rotate(45deg) scale(1.1);
+    color: #FFF;
+}
+.side-close:hover{
+    transform: rotate(45deg) scale(1.1);
+    color: #FFF;
+}
+
+
+.book{
+    width: 15rem;
+    height: 24rem;
+    border: solid 2px grey;
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.headBook {
+    width: 18rem;
+}
+.button-up-down{
+    --bs-btn-padding-x: 0.1rem;
+}
+
+
+.list-group-item {
+    transition: transform 0.2s;
+}
+
+.list-group-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#chapterList .list-group-item:first-child .btn-up {
+    /*display: none;*/
+    visibility: hidden;
+}
+#chapterList .list-group-item:last-child .btn-down {
+    /*display: none;*/
+    visibility: hidden;
+}
+
+.authorCover{
+    width: 100%;
+    height: 10rem;
+    position: relative;
+}
+
+.backgroundDrawingAuthor {
+    width: 100%;
+    height: 100%;
+}
+
+.drawingAuthor {
+    height: 9rem;
+}
+.drawingP {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    font-size: 2rem;
+}
+
+
