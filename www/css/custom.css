@@ -144,4 +144,41 @@ a{
     font-size: 2rem;
 }
 
+/*Стиль для иконок*/
+.icon{
+    height: 2rem;
+}
+
+/*ссылка для иконки*/
+.linkIcon{
+    padding: 0 0.5rem;
+    text-decoration: none;
+}
+
+/*стиль для абложки книги*/
+.autorBooksImg{
+    width: 16rem;
+    height: 21rem;
+    padding-right: 1rem;
+}
+
+/*стиль для кнопки*/
+button {
+    text-align: center;
+    /*transition: 0.1s;*/
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    border: #003CC5;
+    background-image: linear-gradient(to right, #003CC5 0%, #0B63F6 51%, #003CC5 100%);
+    padding: 0.3rem 1rem;
+    margin: 0 0.3rem;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background-position: right center;
+}
+
 
