@@ -163,7 +163,7 @@ a{
 }
 
 /*стиль для кнопки*/
-button {
+.button1 {
     text-align: center;
     /*transition: 0.1s;*/
     background-size: 200% auto;
@@ -177,7 +177,7 @@ button {
     text-transform: uppercase;
 }
 
-button:hover {
+.button1:hover {
     background-position: right center;
 }
 /*вкладки*/
@@ -229,6 +229,15 @@ button:hover {
     border-color: #dee2e6 #dee2e6 #fff;
     cursor: default;
 }
+ /*нижняя полоска в книжной каротчке личного кабинета*/
+.bookBox{
+    border-bottom: 1px solid #333;
+    margin-bottom: 1rem;
+}
 
+/*нижний отступ от блока с кнопками*/
+.buttonBox{
+    margin-bottom: 1rem;
+}
 
 
