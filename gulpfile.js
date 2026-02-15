@@ -1,39 +1,70 @@
 const { series, src, dest, watch } = require('gulp');
 const sass = require('gulp-sass')(require('sass'));
 const browserSync = require('browser-sync').create();
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const cssnano = require('gulp-cssnano');
+const rename = require('gulp-rename');
+
+// Пути к файлам
+const paths = {
+   sass: 'www/app/sass/**/*.sass',
+   css: 'www/app/css/**/*.css',
+   js: 'www/app/js/**/*.js',
+   html: 'www/app/**/*.html',
+   destCss: 'www/app/css/',
+   destLibs: 'www/app/libs/'
+};
 
 // Компиляция SASS в CSS
 function buildStyles() {
-   return src('www/app/sass/**/*.sass')
+   return src(paths.sass)
        .pipe(sass().on('error', sass.logError))
-       .pipe(dest('www/app/css/')) // Указываем папку, а не файл
-       .pipe(browserSync.stream()); // Обновляем стили без перезагрузки страницы
+       .pipe(dest(paths.destCss))
+       .pipe(browserSync.stream());
+}
+
+// Минификация CSS
+function cssMin() {
+   return src(paths.css)
+       .pipe(cssnano())
+       .pipe(rename({ suffix: '.min' }))
+       .pipe(dest(paths.destLibs))
+       .pipe(browserSync.stream()); // Обновляем минифицированный CSS
 }
 
 // Запуск сервера BrowserSync
 function browserSyncServe(done) {
    browserSync.init({
-      server: {
-         baseDir: 'www/app' // Корневая папка проекта
-      },
-      notify: false, // Отключить уведомления
-      open: true     // Автоматически открывать браузер
+      server: { baseDir: 'www/app' },
+      notify: false,
+      open: true
    });
-   done(); // Обязательный callback для завершения задачи
+   done();
 }
 
-// Наблюдение за изменениями в SASS
+// Наблюдение за изменениями
 function watchFiles() {
-   watch('www/app/sass/**/*.sass', buildStyles);
-   // Дополнительно можно отслеживать HTML/JS:
-   // watch('www/app/**/*.html').on('change', browserSync.reload);
+   watch(paths.sass, series(buildStyles, cssMin)); // Перекомпилируем и минифицируем
+   watch(paths.js, series(scripts, browserSync.reload));
+   watch(paths.html).on('change', browserSync.reload);
 }
 
-// Основная задача: запустить сервер и отслеживание
+// Объединение и минификация JS
+function scripts() {
+   return src(paths.js)
+       .pipe(concat('libs.mini.js'))
+       .pipe(uglify())
+       .pipe(dest(paths.destLibs));
+}
+
+// Основная задача
 const dev = series(browserSyncServe, watchFiles);
 
 // Экспорт задач
 exports.buildStyles = buildStyles;
-exports.watchFiles = watchFiles;
+exports.cssMin = cssMin;
 exports.browserSyncServe = browserSyncServe;
-exports.default = dev; // Запуск по команде `gulp`
+exports.scripts = scripts;
+exports.watchFiles = watchFiles;
+exports.default = dev;
