@@ -1,7 +1,36 @@
-@use 'part' as var
+@use "reset"
+@use "header"
+@use "footer"
 
-body
-  background-color: #fff
-  font-size: 4rem
-  color: #0d6efd
+// глобальные переменные
+$colorText: #19245A
+$backgroundColor: #c4d0dc
+
+// Базовые настройки
+html, body
+  height: 100%
+  color: $colorText
+
+
+// Основной контейнер страницы
+.page
+  display: flex
+  flex-direction: column
+  min-height: 100vh  // Занимает минимум всю высоту экрана
+
+
+// Средний блок — растягивается на оставшуюся высоту
+.main
+  flex: 1  // Ключевое свойство: занимает всё свободное пространство
+  background-color: $backgroundColor
+  padding: 1rem
+  overflow-y: auto  // Если контента много — появляется скролл
+
+
+
+
+
+
+
+
 

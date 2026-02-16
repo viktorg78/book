@@ -1,0 +1,65 @@
+//Сброс базовых элементов
+*,
+*::before,
+*::after
+  box-sizing: border-box
+
+
+html
+  font-size: 16px
+  line-height: 1.5
+
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, ol, ul, li, dl, dt, dd,
+figure, figcaption,
+blockquote, q
+  margin: 0
+  padding: 0
+
+
+ol, ul
+  list-style: none
+
+
+img,
+picture,
+svg
+  display: block
+  max-width: 100%
+  height: auto
+
+
+table
+  border-collapse: collapse
+  border-spacing: 0
+
+
+button,
+input,
+select,
+textarea
+  font: inherit
+  margin: 0
+  padding: 0
+  border: none
+  background: transparent
+
+
+a
+  text-decoration: none
+  color: inherit
+
+
+//Для доступности: сброс анимации при prefers-reduced-motion
+@media (prefers-reduced-motion: reduce)
+*,
+*::before,
+*::after
+  animation-duration: 0.01ms !important
+  animation-iteration-count: 1 !important
+  scroll-behavior: auto !important
+  transition-duration: 0.01ms !important
+
+
