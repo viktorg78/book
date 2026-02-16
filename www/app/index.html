@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Книга</title>
     <link rel="stylesheet" href="libs/main.min.css">
+    <script src="js/close-modal-entry.js" defer></script>
 </head>
 <body>
 <div class="page">
@@ -11,24 +12,53 @@
         <nav>
             <div>
                 <img src="img/logo_mini.jpeg" />
-                <a href="#">меню</a>
+                <a href="rider.html">Читалка</a>
                 <div class="dropdown">
                     <button class="dropbtn">Выпадающее</button>
                     <div class="dropdown-content">
-                        <a href="#">Ссылка 1</a>
-                        <a href="#">Ссылка 2</a>
-                        <a href="#">Ссылка 3</a>
+                        <a href="str2.html">Книга подробно</a>
+                        <a href="myLibrary.html">Моя библиотека</a>
+                        <a href="addBook.html">Добавит свою книгу</a>
+                        <a href="addChapter.html">Добавит глову в свою книгу</a>
+                        <a href="editChapter.html">Редактировать главу</a>
+                        <a href="personalAccount.html">Личный кабинет читателя</a>
+                        <a href="personalAccountWriter.html">Личный кабинеит писателя</a>
+                        <a href="writerPage.html">страница писателя</a>
                     </div>
                 </div>
             </div>
             <div>
-                <a href="#">регистрация</a>
-                <a href="#">вход</a>
+                <a href="reg.html">регистрация</a>
+                <a href="#modal-entry">вход</a>
             </div>
         </nav>
     </header>
-    <main class="main">Средний блок (растягивается)</main>
+    <main class="main">
+        <!-- Модальное окно авторизации -->
+        <div class="css-modal-target" id="modal-entry">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-entry" title="Закрыть">&times;</a>
+                <form>
+                    <div class="formEmpty">
+                        <h3>ВХОД</h3>
+                        <input type="text" id="login" placeholder="логин">
+                        <input type="password" placeholder="Пароль" required>
+                        <a href="forgetPassword.html">Забыли пароль</a>
+                        <button type="submit">Вход</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+
+        <div class="control-unit">
+            <input type="text" placeholder="поиск по автору или книге">
+            <a href="#" title="Начитающие авторы">Новички</a>
+            <a href="#" title="Популярные авторы">Мэтры</a>
+        </div>
+    </main>
     <footer class="footer">Нижний блок</footer>
 </div>
+
 </body>
 </html>

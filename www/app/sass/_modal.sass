@@ -1,0 +1,47 @@
+$colorText: #19245A
+
+// Контейнер, который затемняет страницу
+.css-modal-target
+  display: none
+  &:target
+    display: flex
+    align-items: center
+    justify-content: center
+    z-index: 4
+    position: fixed
+    left: 0
+    top: 0
+    width: 100%
+    height: 100%
+    animation: bg 0.5s ease
+    background: rgba(90, 90, 90, 0.7)
+    > .cmt
+      padding: 20px
+      width: 80%
+      z-index: 8
+      max-width: 600px
+      max-height: 70%
+      border: 1px solid #BFE2FF
+      background: #FFF
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2), 0 16px 20px rgba(0,0,0,0.2)
+      text-align: center
+      overflow: auto
+      position: relative
+
+// Кнопка с крестиком закрывающая окно
+.css-modal-close
+  position: absolute
+  top: 5px
+  right: 10px
+  font-size: 2em
+  cursor: pointer
+  color: $colorText
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
 $link-color: #19245A
 $link-hover-color: #697479
+$backgroundColor: #c4d0dc
+$backgroundColor2: #d3e0ec
 nav
   display: flex
   flex-direction: row
@@ -30,27 +32,26 @@ nav
     .dropdown-content
       display: block
     .dropbtn
-      background-color: #3e8e41
+      color: $link-hover-color
 .dropbtn
-  background-color: #4CAF50
-  color: white
-  padding: 16px
-  font-size: 16px
+  color: $link-color
+  text-transform: uppercase
   border: none
 .dropdown-content
   display: none
   position: absolute
-  background-color: #f1f1f1
-  min-width: 160px
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2)
+  background-color: $backgroundColor
+  min-width: 10rem
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2)
   z-index: 1
   > a
-    color: black
-    padding: 12px 16px
+    color: $link-color
+    white-space: nowrap
+    padding: 0.5rem 1rem
     text-decoration: none
     display: block
     &:hover
-      background-color: #ddd
+      background-color: $backgroundColor2
 
 
 
