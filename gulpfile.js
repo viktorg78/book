@@ -5,6 +5,8 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const cssnano = require('gulp-cssnano');
 const rename = require('gulp-rename');
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
 
 // Пути к файлам
 const paths = {
@@ -20,6 +22,12 @@ const paths = {
 function buildStyles() {
    return src(paths.sass)
        .pipe(sass().on('error', sass.logError))
+       .pipe(postcss([
+          autoprefixer({
+             overrideBrowserslist: ['last 15 versions', '> 1%', 'ie 8', 'ie 7'],
+             cascade: true
+          })
+       ]))
        .pipe(dest(paths.destCss))
        .pipe(browserSync.stream());
 }
@@ -45,7 +53,7 @@ function browserSyncServe(done) {
 
 // Наблюдение за изменениями
 function watchFiles() {
-   watch(paths.sass, series(buildStyles, cssMin)); // Перекомпилируем и минифицируем
+   watch(paths.sass, series(buildStyles)); //cssMin)); // Перекомпилируем и минифицируем
    watch(paths.js, series(scripts, browserSync.reload));
    watch(paths.html).on('change', browserSync.reload);
 }
