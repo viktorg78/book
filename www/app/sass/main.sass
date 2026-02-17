@@ -1,8 +1,10 @@
 @use "reset"
+@use "mixins" as *
 @use "header"
 @use "footer"
 @use "modal"
-@use "controlUnit"
+@use "showcase"
+@use "forgetPassword"
 
 // глобальные переменные
 $colorText: #19245A
@@ -37,41 +39,12 @@ html, body
       outline: 1px solid $colorText
       outline-offset: 1px
   > input
-    width: 100%
-    padding: 10px 15px
-    margin: 8px 0
-    box-sizing: border-box //Учитывает padding и border в ширине
-    border: 2px solid #ccc // Граница
-    border-radius: 5px // Скругление углов
-    font-size: 16px // Размер шрифта
-    color: #333 // Цвет текста
-    background-color: #f9f9f9 // Цвет фона
-    transition: 0.3s // Плавный переход
-    text-align: center
-    &::placeholder
-      text-align: center
-    &:focus
-      border-color: #eae5e5 // Цвет границы при фокусе
-      background-color: #fff
-      outline: none // Убирает стандартный контур браузера
-      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5) // Тень
+    @include input1
   button[type=submit]
-    margin: 1rem 0
-    background-color: $colorText // Цвет фона
-    color: $backgroundColor     // Цвет текста
-    padding: 5px 20px       // Размер кнопки
-    border: none             // Убрать стандартную границу
-    border-radius: 5px       // Скругление углов
-    cursor: pointer          // Курсор-рука при наведении
-    font-size: 1.2em          // Размер шрифта
-    transition: background-color 0.3s ease
-    text-transform: uppercase
-    letter-spacing: 2px
-    &:hover
-      background-color: #151f52
-    &:focus
-      outline: 2px solid $colorText
-      outline-offset: 2px
+    @include button1
+    margin-top: 1rem
+    padding: 5px 20px
+
 
 
 

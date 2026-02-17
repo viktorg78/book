@@ -1,3 +1,7 @@
+@use "mixins" as *
+
+$colorText: #19245A
+$backgroundColor: #c4d0dc
 .control-unit
   display: flex
   flex-direction: row
@@ -5,20 +9,23 @@
   justify-content: flex-start
   align-items: center
   > .search
+    display: inline-flex
+    flex-direction: row
+    flex-wrap: nowrap
+    padding: 0 1rem
     > input
-      width: 100%
-      padding: 10px 15px
-      margin: 8px 0
-      box-sizing: border-box //Учитывает padding и border в ширине
-      border: 2px solid #ccc // Граница
-      border-radius: 5px // Скругление углов
-      font-size: 16px // Размер шрифта
-      color: #333 // Цвет текста
-      background-color: #f9f9f9 // Цвет фона
-      transition: 0.3s // Плавный переход
-      &:focus
-        border-color: #eae5e5 // Цвет границы при фокусе
-        background-color: #fff
-        outline: none // Убирает стандартный контур браузера
-        box-shadow: 0 0 5px rgba(76, 175, 80, 0.5) // Тень
+      @include input1
+      padding: 0 30px
+    > button
+      @include button1
+      margin-top: 10px
+      margin-bottom: 10px
+      margin-left: 0.5rem
+      padding: 0.5rem 15px
+  > a
+    @include a1
+
+
+
+
 

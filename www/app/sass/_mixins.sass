@@ -1,0 +1,72 @@
+$colorText: #19245A
+$backgroundColor: #c4d0dc
+$link-hover-color: #697479
+$link-color: #19245A
+$backgroundColorAnnouncement: #bdc7d2
+
+@mixin button1
+  background-color: $colorText // Цвет фона
+  color: $backgroundColor     // Цвет текста
+  border: none             // Убрать стандартную границу
+  border-radius: 5px       // Скругление углов
+  cursor: pointer          // Курсор-рука при наведении
+  font-size: 1.2em          // Размер шрифта
+  transition: background-color 0.3s ease
+  text-transform: uppercase
+  letter-spacing: 2px
+  &:hover
+    background-color: #151f52
+  &:focus
+    outline: 2px solid $colorText
+    outline-offset: 2px
+
+@mixin input1
+  width: 100%
+  padding: 10px 15px
+  margin: 8px 0
+  box-sizing: border-box //Учитывает padding и border в ширине
+  border: 2px solid #ccc // Граница
+  border-radius: 5px // Скругление углов
+  font-size: 16px // Размер шрифта
+  color: #333 // Цвет текста
+  background-color: #f9f9f9 // Цвет фона
+  transition: 0.3s // Плавный переход
+  text-align: center
+  &::placeholder
+    text-align: center
+  &:focus
+    border-color: #eae5e5 // Цвет границы при фокусе
+    background-color: #fff
+    outline: none // Убирает стандартный контур браузера
+    box-shadow: 0 0 5px rgba(23, 33, 84, 0.5) // Тень
+
+@mixin a1
+  font-size: 1em
+  text-transform: uppercase
+  color: $link-color
+  &:not(:last-child)
+    padding: 0 2rem
+  &:hover
+    color: $link-hover-color
+
+@mixin heading  // заголовки на страницах
+  text-align: center
+  font-size: 2em
+  text-transform: uppercase
+  padding-bottom: 1rem
+
+@mixin announcement // Обявления на сайте
+  text-align: center
+  padding: 1em
+  font-size: 1.2em
+  border-radius: 1rem
+  width: fit-content
+  margin: 0 auto
+  background-color: $backgroundColorAnnouncement
+
+
+@mixin flexColumn1 // вертикальный флекс
+  display: flex
+  flex-flow: column nowrap
+  align-items: center
+

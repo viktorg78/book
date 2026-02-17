@@ -1,3 +1,6 @@
+@use "mixins" as *
+@use "controlUnit"
+
 $link-color: #19245A
 $link-hover-color: #697479
 $backgroundColor: #c4d0dc
@@ -15,13 +18,7 @@ nav
     justify-content: space-between
     align-items: center
     > a
-      font-size: 1rem
-      text-transform: uppercase
-      color: $link-color
-      &:not(:last-child)
-        padding: 0 2rem
-      &:hover
-        color: $link-hover-color
+      @include a1
     > img
       padding-right: 1rem
 

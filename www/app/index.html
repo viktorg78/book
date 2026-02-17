@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Книга</title>
-    <link rel="stylesheet" href="libs/main.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/close-modal-entry.js" defer></script>
 </head>
 <body>
@@ -11,7 +11,7 @@
     <header class="header">
         <nav>
             <div>
-                <img src="img/logo_mini.jpeg" />
+                <img src="img/logo_mini.jpeg"/>
                 <a href="rider.html">Читалка</a>
                 <div class="dropdown">
                     <button class="dropbtn">Выпадающее</button>
@@ -26,14 +26,20 @@
                         <a href="writerPage.html">страница писателя</a>
                     </div>
                 </div>
+                <div class="control-unit">
+                    <div class="search">
+                        <input type="text" placeholder="поиск по автору или книге">
+                        <button>Поиск</button>
+                    </div>
+                    <a href="#" title="Начитающие авторы">Новички</a>
+                    <a href="#" title="Популярные авторы">Мэтры</a>
+                </div>
             </div>
             <div>
                 <a href="reg.html">регистрация</a>
                 <a href="#modal-entry">вход</a>
             </div>
         </nav>
-    </header>
-    <main class="main">
         <!-- Модальное окно авторизации -->
         <div class="css-modal-target" id="modal-entry">
             <div class="cmt">
@@ -50,18 +56,153 @@
             </div>
         </div>
         <!-- Конец Модальное окна -->
-
-        <div class="control-unit">
-            <div class="search">
-                <input type="text" placeholder="поиск по автору или книге"><button>Поиск</button>
+    </header>
+    <main class="main">
+        <div class="showcase">
+            <div class="showcase-name">
+                <h3>НОВЫЕ КНИГИ</h3>
+                <a href="#">Посмотреть все новинки</a>
             </div>
-
-            <a href="#" title="Начитающие авторы">Новички</a>
-            <a href="#" title="Популярные авторы">Мэтры</a>
+            <div class="scroll-container">
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                        <img class="cover-book" src="img/logo_mini.jpeg">
+                        <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="showcase">
+            <div class="showcase-name">
+                <h3>ПОПУЛЯРНЫЕ КНИГИ</h3>
+                <a href="#">Посмотреть все популярные книги</a>
+            </div>
+            <div class="scroll-container">
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="showcase">
+            <div class="showcase-name">
+                <h3>Вы итересовались этими кигами</h3>
+            </div>
+            <div class="scroll-container">
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+                <div class="scroll-item">
+                    <figure>
+                        <a href="#">
+                            <img class="cover-book" src="img/logo_mini.jpeg">
+                            <figcaption class="cover-book-name">Название книги может быть длинным</figcaption>
+                        </a>
+                    </figure>
+                </div>
+            </div>
         </div>
     </main>
     <footer class="footer">Нижний блок</footer>
 </div>
-
 </body>
 </html>

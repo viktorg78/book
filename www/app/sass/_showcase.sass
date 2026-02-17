@@ -1,0 +1,34 @@
+@use "mixins" as *
+
+$colorText: #19245A
+
+.showcase
+  padding-bottom: 2rem
+  > .showcase-name
+    display: flex
+    flex-flow: row nowrap
+    gap: 2rem
+    align-items: center
+    > a
+      @include a1
+      font-size: 0.8em
+  > .scroll-container
+    display: flex /* Используем flexbox для горизонтального расположения */
+    overflow-x: auto /* Включаем горизонтальную прокрутку */
+    gap: 10px /* Расстояние между элементами */
+    padding: 10px
+    width: 100% /* Или фиксированная ширина */
+    > .scroll-item
+      flex: 0 0 200px /* Элементы не сжимаются и имеют фиксированную ширину */
+      display: flex
+      align-items: center
+      justify-content: center
+      border: 1px solid $colorText
+      .cover-book
+        width: 200px
+        height: 285px
+      .cover-book-name
+        font-size: 1.2em
+        text-align: center
+
+
