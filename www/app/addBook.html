@@ -68,8 +68,8 @@
                             Максимальный размер файла: 5 мб.
                         </div>
                         <div class="block-img">
-                            <img id="e4r45t" src=""/>
-                            <input id="riss" type="file" accept="image/png, image/jpeg"/>
+                            <img id="e4r45t" src="" alt="Обложка">
+                            <input id="riss" type="file" accept="image/png, image/jpeg" />
                         </div>
                         <label for="riss">загрузить обложку</label>
                     </div>
@@ -92,13 +92,85 @@
     <footer class="footer">Нижний блок</footer>
 </div>
 <script>
-    let image = document.getElementById("e4r45t");
-    let file = document.getElementById("riss");
+    const image = document.getElementById("e4r45t");
+    const fileInput = document.getElementById("riss");
 
-    document.querySelector('input[type="file"]').onchange = e => {
-        image.src = URL.createObjectURL(file.files[0]);
-        // image.style.display = "block";
-    }
+    fileInput.onchange = (e) => {
+        // 1. Проверяем, что файл выбран
+        if (!fileInput.files || !fileInput.files[0]) {
+            return;
+        }
+
+        const file = fileInput.files[0];
+
+        // 2. Проверяем тип файла
+        if (!file.type.startsWith('image/')) {
+            alert('Пожалуйста, выберите изображение (PNG или JPEG)');
+            fileInput.value = '';
+            return;
+        }
+
+        // 3. Проверяем размер файла (максимум 5 МБ)
+        const maxSize = 5 * 1024 * 1024; // 5 МБ в байтах
+        if (file.size > maxSize) {
+            alert('Файл слишком большой. Максимальный размер — 5 МБ.');
+            fileInput.value = '';
+            return;
+        }
+
+        // 4. Создаём временный URL для предпросмотра
+        const objectURL = URL.createObjectURL(file);
+
+        // 5. Загружаем изображение для проверки размеров
+        const img = new Image();
+        img.onload = () => {
+            const targetWidth = 200;
+            const targetHeight = 280;
+            const tolerance = 0.10; // 10%
+
+            // Вычисляем допустимые границы
+            const minWidth = targetWidth * (1 - tolerance);
+            const maxWidth = targetWidth * (1 + tolerance);
+            const minHeight = targetHeight * (1 - tolerance);
+            const maxHeight = targetHeight * (1 + tolerance);
+
+            const actualWidth = img.naturalWidth;
+            const actualHeight = img.naturalHeight;
+
+            // Проверяем, попадают ли размеры в диапазон ±10%
+            if (
+                actualWidth < minWidth ||
+                actualWidth > maxWidth ||
+                actualHeight < minHeight ||
+                actualHeight > maxHeight
+            ) {
+                alert(
+                    `Размеры изображения должны быть близки к 200×280 px (допуск ±10%).\n` +
+                    `Ваши размеры: ${actualWidth}×${actualHeight} px.\n` +
+                    `Допустимый диапазон: ${minWidth.toFixed(0)}–${maxWidth.toFixed(0)} px по ширине и ` +
+                    `${minHeight.toFixed(0)}–${maxHeight.toFixed(0)} px по высоте.`
+                );
+                URL.revokeObjectURL(objectURL); // Очищаем URL
+                fileInput.value = ''; //Очищаем поле
+                return;
+            }
+
+            // Если всё ок — отображаем изображение
+            image.src = objectURL;
+            image.style.display = 'block';
+
+            // Освобождаем URL после загрузки (опционально)
+            image.onload = () => URL.revokeObjectURL(objectURL);
+        };
+
+        img.onerror = () => {
+            alert('Не удалось загрузить изображение. Проверьте файл.');
+            URL.revokeObjectURL(objectURL);
+            fileInput.value = '';
+        };
+
+        img.src = objectURL; // Запускаем загрузку
+    };
 </script>
 </body>
 </html>
