@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга [Добавить книгу]</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/close-modal-entry.js" defer></script>
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <nav>
+            <div>
+                <a href="index.html" class="linkImage" title="На главную страницу"><img src="img/logo_mini.jpeg"/></a>
+                <a href="rider.html">Читалка</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Выпадающее</button>
+                    <div class="dropdown-content">
+                        <a href="str2.html">Книга подробно</a>
+                        <a href="myLibrary.html">Моя библиотека</a>
+                        <a href="addBook.html">Добавит свою книгу</a>
+                        <a href="addChapter.html">Добавит глову в свою книгу</a>
+                        <a href="editChapter.html">Редактировать главу</a>
+                        <a href="personalAccount.html">Личный кабинет читателя</a>
+                        <a href="personalAccountWriter.html">Личный кабинеит писателя</a>
+                        <a href="writerPage.html">страница писателя</a>
+                    </div>
+                </div>
+                <div class="control-unit">
+                    <div class="search">
+                        <input type="text" placeholder="поиск по автору или книге">
+                        <button>Поиск</button>
+                    </div>
+                    <a href="#" title="Начитающие авторы">Новички</a>
+                    <a href="#" title="Популярные авторы">Мэтры</a>
+                </div>
+            </div>
+            <div>
+                <a href="reg.html">регистрация</a>
+                <a href="#modal-entry">вход</a>
+            </div>
+        </nav>
+        <!-- Модальное окно авторизации -->
+        <div class="css-modal-target" id="modal-entry">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-entry" title="Закрыть">&times;</a>
+                <form>
+                    <div class="formEmpty">
+                        <h3>ВХОД</h3>
+                        <input type="text" id="login" placeholder="логин">
+                        <input type="password" placeholder="Пароль" required>
+                        <a href="forgetPassword.html">Забыли пароль</a>
+                        <button type="submit">Вход</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+    </header>
+    <main class="main">
+        <div class="add-book">
+            <form>
+                <div class="cart-book">
+                    <div class="add-img">
+                        <div>
+                            Обложка книги
+                            Размер изображения должен быть не менее 200 пикселей в ширину и 285 в высоту.
+                            Максимальный размер файла: 5 мб.
+                        </div>
+                        <div class="block-img">
+                            <img id="e4r45t" src=""/>
+                            <input id="riss" type="file" accept="image/png, image/jpeg"/>
+                        </div>
+                        <label for="riss">загрузить обложку</label>
+                    </div>
+
+                    <div class="block-input">
+                        <div>Название книги</div>
+                        <div>Выбери жанр книги</div>
+                        <div>Тэги для поиска через пробел. Максимум 5 тегов.</div>
+                        <div>Краткое описание книги. Расскажите о чем она. Максимум 400 символов.</div>
+                        <div>Книга входит в цикл</div>
+                        <div>
+                            <button type="reset">Очистить</button>
+                            <button type="submit">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="footer">Нижний блок</footer>
+</div>
+<script>
+    let image = document.getElementById("e4r45t");
+    let file = document.getElementById("riss");
+
+    document.querySelector('input[type="file"]').onchange = e => {
+        image.src = URL.createObjectURL(file.files[0]);
+        // image.style.display = "block";
+    }
+</script>
+</body>
+</html>

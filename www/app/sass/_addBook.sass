@@ -1,0 +1,29 @@
+@use "mixins" as *
+
+$colorText: #19245A
+
+.add-book
+  @include flexColumn1
+  .cart-book
+    display: inline-flex
+    flex-flow: row nowrap
+    gap: 2rem
+    > .add-img
+      max-width: 200px
+      @include flexColumn1
+      justify-content: center
+      gap: 1rem
+      > .block-img
+        width: 200px
+        height: 280px
+        border: 1px solid $colorText
+        > input
+          visibility: hidden
+        >img
+          width: 200px
+          height: 280px
+    > .block-input
+      display: inline-flex
+      flex-flow: column nowrap
+      gap: 2rem
+      background-color: #0d6efd
