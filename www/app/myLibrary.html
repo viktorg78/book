@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга [Моя библиотека]</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/close-modal-entry.js" defer></script>
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <nav>
+            <div>
+                <a href="index.html" class="linkImage" title="На главную страницу"><img src="img/logo_mini.jpeg"/></a>
+                <a href="rider.html">Читалка</a>
+                <div class="dropdown">
+                    <button class="dropbtn">Выпадающее</button>
+                    <div class="dropdown-content">
+                        <a href="str2.html">Книга подробно</a>
+                        <a href="myLibrary.html">Моя библиотека</a>
+                        <a href="addBook.html">Добавит свою книгу</a>
+                        <a href="addChapter.html">Добавит глову в свою книгу</a>
+                        <a href="editChapter.html">Редактировать главу</a>
+                        <a href="personalAccount.html">Личный кабинет читателя</a>
+                        <a href="personalAccountWriter.html">Личный кабинеит писателя</a>
+                        <a href="writerPage.html">страница писателя</a>
+                    </div>
+                </div>
+                <div class="control-unit">
+                    <div class="search">
+                        <input type="text" placeholder="поиск по автору или книге">
+                        <button>Поиск</button>
+                    </div>
+                    <a href="#" title="Начитающие авторы">Новички</a>
+                    <a href="#" title="Популярные авторы">Мэтры</a>
+                </div>
+            </div>
+            <div>
+                <a href="reg.html">регистрация</a>
+                <a href="#modal-entry">вход</a>
+            </div>
+        </nav>
+        <!-- Модальное окно авторизации -->
+        <div class="css-modal-target" id="modal-entry">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-entry" title="Закрыть">&times;</a>
+                <form>
+                    <div class="formEmpty">
+                        <h3>ВХОД</h3>
+                        <input type="text" id="login" placeholder="логин">
+                        <input type="password" placeholder="Пароль" required>
+                        <a href="forgetPassword.html">Забыли пароль</a>
+                        <button type="submit">Вход</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+    </header>
+    <main class="main">
+        <div class="my-library">
+            <div class="list-of-books">
+                <div class="book">
+                    <img src="img/logo_mini.jpeg">
+                    <div class="book-card-text">
+                        <h3>Название книги</h3>
+                        <div class="author">Автор:
+                            <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на страницу
+                                автора</a>
+                        </div>
+                        <div class="brief-information-about-book">
+                            краткая информация о книге краткая информация о книге краткая информация о книге
+                        </div>
+
+                        <div><b>Жанр книги:</b> Фантастика</div>
+                        <div class="likes">
+                            <div>10</div>
+                            <img src="img/like.png" alt="Нравиться">
+                            <button>+</button> <button>-</button>
+                        </div>
+                        <div class="block-button">
+                            <button>ЧИТАТЬ</button>  <button><img src="img/del.png">Удалить книгу</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="img/logo_mini.jpeg">
+                    <div class="book-card-text">
+                        <h3>Название книги</h3>
+                        <div class="author">Автор:
+                            <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на страницу
+                                автора</a>
+                        </div>
+                        <div class="brief-information-about-book">
+                            краткая информация о книге краткая информация о книге краткая информация о книге
+                        </div>
+
+                        <div><b>Жанр книги:</b> Фантастика</div>
+                        <div class="likes">
+                            <div>10</div>
+                            <img src="img/like.png" alt="Нравиться">
+                            <button>+</button> <button>-</button>
+                        </div>
+                        <div class="block-button">
+                            <button>ЧИТАТЬ</button>  <button><img src="img/del.png">Удалить книгу</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book">
+                    <img src="img/logo_mini.jpeg">
+                    <div class="book-card-text">
+                        <h3>Название книги</h3>
+                        <div class="author">Автор:
+                            <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на страницу
+                                автора</a>
+                        </div>
+                        <div class="brief-information-about-book">
+                            краткая информация о книге краткая информация о книге краткая информация о книге
+                        </div>
+
+                        <div><b>Жанр книги:</b> Фантастика</div>
+                        <div class="likes">
+                            <div>10</div>
+                            <img src="img/like.png" alt="Нравиться">
+                            <button>+</button> <button>-</button>
+                        </div>
+                        <div class="block-button">
+                            <button>ЧИТАТЬ</button>  <button><img src="img/del.png">Удалить книгу</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">Нижний блок</footer>
+</div>
+</body>
+</html>

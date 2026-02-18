@@ -1,3 +1,4 @@
+@use "mixins" as *
 $link-hover-color: #697479
 .book-card
   display: flex
@@ -8,12 +9,23 @@ $link-hover-color: #697479
     width: 200px
     height: 285px
 .book-card-text
+  display: inline-flex
+  flex-flow: column nowrap
+  justify-content: space-between
   > .author
     font-weight: bold
     > a
       font-weight: normal
       &:hover
         color: $link-hover-color
+  > button
+    @include button1
+    padding: 0.3rem 0.5rem
+    margin-top: 0.2rem
+    width: fit-content
+  > .brief-information-about-book
+    @include announcement
+    text-align: left
 
 
 
