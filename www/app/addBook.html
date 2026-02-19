@@ -145,69 +145,81 @@
     const image = document.getElementById("e4r45t");
     const fileInput = document.getElementById("riss");
     const openModal = document.getElementById('openModal');
-    const tegBook = document.getElementById('tegBook');
+    const tegBookInput = document.getElementById('tegBook'); // Переименовано для ясности
     const TageCharacterCount = document.getElementById('TageCharacterCount');
     const inputDescription = document.getElementById('inputDescription');
     const descriptionCharacterCount = document.getElementById('descriptionCharacterCount');
     const formNewBook = document.getElementById('formNewBook');
 
     formNewBook.addEventListener('submit', event => {
-        const nameBook = document.getElementById('nameBook').value;
+        const nameBook = document.getElementById('nameBook');
         const inputCategory = document.getElementById('inputCategory').value;
-        const tegBook = document.getElementById('tegBook').value;
-        const inputDescription = document.getElementById('inputDescription').value;
+        const tegBookValue = tegBookInput.value; // Используем переименованную переменную
+        const inputDescriptionValue = inputDescription.value;
+        const fileInputIs = fileInput.value;
+
         let text = '';
-        if (nameBook.trim() === "") {
-            text += "<div>Поле 'Название книги' не может быть пустым.</div>"
 
-        }
+        if (nameBook.value.trim() === "") {
+            text += "<div>Поле 'Название книги' не может быть пустым.</div>";
+            nameBook.classList.add("error-border");
+        } else nameBook.classList.remove("error-border");
+
         if (!inputCategory) {
-            text += "<div>Выберете жанр книги.</div>"
+            text += "<div>Выберите жанр книги.</div>";
+            document.getElementById("inputCategory").style.border = "2px solid red";
+        }
+        if (tegBookValue.trim() === "") {
+            text += "<div>Должен быть хотя бы 1 тег.</div>";
+        }
 
-        }
-        if (tegBook.trim() === ""){
-            text += "<div>Должен быть хотябы 1 ТЭГ.</div>"
+        // Исправлена логика: ошибка, если длина < 100
+        if (inputDescriptionValue.trim() === "") {
+            text += "<div>Краткое описание не должно быть пустым.</div>";
+        } else if (inputDescriptionValue.length < 100) {
+            text += "<div>Краткое описание должно быть не менее 100 символов.</div>";
         }
 
-        if (inputDescription.trim() === ""){
-            text += "<div>'Краткое описание не должно быть пустым.'</div>"
-        } else if (inputDescription.length <= 100){
-            text += "<div>'Краткое описание должно быть не мение 100 символов.'</div>"
-        }
+        console.log(fileInputIs);
 
         if (text !== '') {
-            alert(text)
-            event.preventDefault()
+            alert(text);
+            event.preventDefault();
         }
-
     });
 
-
     inputDescription.addEventListener("input", () => {
+        // Обрезаем до 400 символов *до* подсчёта
+        inputDescription.value = inputDescription.value.slice(0, 400);
         const textLength = inputDescription.value.length;
         descriptionCharacterCount.textContent = 'Введено ' + textLength + ' символов.';
-        inputDescription.value = inputDescription.value.slice(0, 400);
-    })
+    });
 
-    tegBook.addEventListener("input", () => {
-        const textLength = tegBook.value.match(/\s+/g) ? tegBook.value.match(/\s+/g).length : 0;
-        switch (textLength) {
+    tegBookInput.addEventListener("input", () => {
+        // Разделяем строку по пробелам и фильтруем пустые элементы
+        const tags = tegBookInput.value.trim().split(/\s+/).filter(tag => tag.length > 0);
+        const tagCount = tags.length;
+
+        switch (tagCount) {
             case 1:
-                TageCharacterCount.textContent = 'Введён ' + textLength + ' тег.';
-                break
+                TageCharacterCount.textContent = 'Введён ' + tagCount + ' тег.';
+                break;
             case 2:
             case 3:
             case 4:
-                TageCharacterCount.textContent = 'Введено ' + textLength + ' тега.';
-                break
+                TageCharacterCount.textContent = 'Введено ' + tagCount + ' тега.';
+                break;
             default:
-                TageCharacterCount.textContent = 'Введено ' + textLength + ' тегов.';
+                TageCharacterCount.textContent = 'Введено ' + tagCount + ' тегов.';
         }
-        if (textLength >= 5) {
-            const textLength2 = tegBook.value.length;
-            tegBook.value = tegBook.value.slice(0, textLength2 - 1)
+
+        // Ограничиваем количество тегов до 5
+        if (tagCount > 5) {
+            // Собираем первые 5 тегов и обновляем значение поля
+            tegBookInput.value = tags.slice(0, 5).join(' ');
+            TageCharacterCount.textContent = 'Введено 5 тегов (максимум).';
         }
-    })
+    });
 
     function res() {
         image.src = '';
@@ -216,14 +228,13 @@
     }
 
     fileInput.onchange = (e) => {
-        // 1. Проверяем, что файл выбран
         if (!fileInput.files || !fileInput.files[0]) {
             return;
         }
 
         const file = fileInput.files[0];
 
-        // 2. Проверяем тип файла
+        // Проверка типа файла
         if (!file.type.startsWith('image/')) {
             document.getElementById('textError').textContent = 'Пожалуйста, выберите изображение (PNG или JPEG)';
             openModal.click();
@@ -231,26 +242,23 @@
             return;
         }
 
-        // 3. Проверяем размер файла (максимум 5 МБ)
-        const maxSize = 5 * 1024 * 1024; // 5 МБ в байтах
+        // Проверка размера файла (максимум 5 МБ)
+        const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
-            document.getElementById('textError').textContent = 'Файл слишком большой. Максимальный размер — 5 МБ.';
+            document.getElementById('textError').textContent = 'Файл слишком большой. Максимальный размер — 5 МБ.';
             openModal.click();
             fileInput.value = '';
             return;
         }
 
-        // 4. Создаём временный URL для предпросмотра
         const objectURL = URL.createObjectURL(file);
-
-        // 5. Загружаем изображение для проверки размеров
         const img = new Image();
+
         img.onload = () => {
             const targetWidth = 200;
             const targetHeight = 280;
-            const tolerance = 0.10; // 10%
+            const tolerance = 0.10;
 
-            // Вычисляем допустимые границы
             const minWidth = targetWidth * (1 - tolerance);
             const maxWidth = targetWidth * (1 + tolerance);
             const minHeight = targetHeight * (1 - tolerance);
@@ -259,25 +267,22 @@
             const actualWidth = img.naturalWidth;
             const actualHeight = img.naturalHeight;
 
-            // Проверяем, попадают ли размеры в диапазон ±10%
             if (
                 actualWidth < minWidth ||
                 actualWidth > maxWidth ||
                 actualHeight < minHeight ||
                 actualHeight > maxHeight
             ) {
-                document.getElementById('textError').textContent = 'Размеры изображения должны быть близки к 200×280 px.';
+                document.getElementById('textError').textContent =
+                    'Размеры изображения должны быть близки к 200×280 px (±10 %).';
                 openModal.click();
-                URL.revokeObjectURL(objectURL); // Очищаем URL
-                fileInput.value = ''; //Очищаем поле
+                URL.revokeObjectURL(objectURL);
+                fileInput.value = '';
                 return;
             }
 
-            // Если всё ок — отображаем изображение
             image.src = objectURL;
             image.style.display = 'block';
-
-            // Освобождаем URL после загрузки (опционально)
             image.onload = () => URL.revokeObjectURL(objectURL);
         };
 
@@ -287,7 +292,7 @@
             fileInput.value = '';
         };
 
-        img.src = objectURL; // Запускаем загрузку
+        img.src = objectURL;
     };
 </script>
 </body>
