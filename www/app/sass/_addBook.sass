@@ -8,23 +8,72 @@ $colorText: #19245A
     display: inline-flex
     flex-flow: row nowrap
     gap: 2rem
+    align-items: flex-start
     > .add-img
       max-width: 200px
       @include flexColumn1
       justify-content: center
       gap: 1rem
-      > .block-img
+      > .preview
+        text-align: center
+        font-size: 0.9em
+      > .pseudo-button
+        @include button1
+        font-size: 0.7em
+        padding: 0.3rem 0.4rem
+      .block-img
         width: 200px
-        height: 280px
+        height: 285px
         border: 1px solid $colorText
         > input
           visibility: hidden
         >img
           width: 200px
-          height: 280px
+          height: 285px
           display: none
     > .block-input
       display: inline-flex
       flex-flow: column nowrap
       gap: 2rem
-      background-color: #0d6efd
+      > div
+        > label
+          margin: 0
+          padding-left: 1rem
+          font-weight: bold
+        > input
+          @include input1
+          margin: 0
+          text-align: left
+        > textarea
+          width: 100%
+          margin: 0
+          box-sizing: border-box //Учитывает padding и border в ширине
+          border: 2px solid #ccc // Граница
+          border-radius: 5px // Скругление углов
+          font-size: 16px // Размер шрифта
+          color: #333 // Цвет текста
+          background-color: #f9f9f9 // Цвет фона
+          padding: 10px 15px
+          transition: 0.3s // Плавный переход
+          resize: none
+        > select
+          width: 100%
+          padding: 10px 15px
+          margin: 0
+          box-sizing: border-box //Учитывает padding и border в ширине
+          border: 2px solid #ccc // Граница
+          border-radius: 5px // Скругление углов
+          font-size: 16px // Размер шрифта
+          color: #333 // Цвет текста
+          background-color: #f9f9f9 // Цвет фона
+          transition: 0.3s // Плавный переход
+          text-align: left
+          &:focus
+            border-color: #eae5e5 // Цвет границы при фокусе
+            background-color: #fff
+            outline: none // Убирает стандартный контур браузера
+            box-shadow: 0 0 5px rgba(23, 33, 84, 0.5) // Тень
+        > button
+          @include button1
+          padding: 0.3rem 0.5rem
+
