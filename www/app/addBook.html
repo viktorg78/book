@@ -150,14 +150,23 @@
     const inputDescription = document.getElementById('inputDescription');
     const descriptionCharacterCount = document.getElementById('descriptionCharacterCount');
     const formNewBook = document.getElementById('formNewBook');
+    const nameBook = document.getElementById('nameBook');
+    const inputCategory = document.getElementById('inputCategory');
+
+    nameBook.addEventListener('focus', () =>{
+        nameBook.classList.remove("error-border");
+    });
+    inputCategory.addEventListener('focus', () =>{
+        inputCategory.classList.remove("error-border");
+    });
+    tegBookInput.addEventListener('focus', () =>{
+        tegBookInput.classList.remove("error-border");
+    });
+    inputDescription.addEventListener('focus', () =>{
+        inputDescription.classList.remove("error-border");
+    });
 
     formNewBook.addEventListener('submit', event => {
-        const nameBook = document.getElementById('nameBook');
-        const inputCategory = document.getElementById('inputCategory').value;
-        const tegBookValue = tegBookInput.value; // Используем переименованную переменную
-        const inputDescriptionValue = inputDescription.value;
-        const fileInputIs = fileInput.value;
-
         let text = '';
 
         if (nameBook.value.trim() === "") {
@@ -165,25 +174,28 @@
             nameBook.classList.add("error-border");
         } else nameBook.classList.remove("error-border");
 
-        if (!inputCategory) {
+        if (!inputCategory.value) {
             text += "<div>Выберите жанр книги.</div>";
-            document.getElementById("inputCategory").style.border = "2px solid red";
-        }
-        if (tegBookValue.trim() === "") {
+            inputCategory.classList.add("error-border");
+        } else inputCategory.classList.remove("error-border");
+
+        if (tegBookInput.value.trim() === "") {
             text += "<div>Должен быть хотя бы 1 тег.</div>";
-        }
+            tegBookInput.classList.add("error-border");
+        } else tegBookInput.classList.remove("error-border");
 
-        // Исправлена логика: ошибка, если длина < 100
-        if (inputDescriptionValue.trim() === "") {
+        if (inputDescription.value.trim() === "") {
             text += "<div>Краткое описание не должно быть пустым.</div>";
-        } else if (inputDescriptionValue.length < 100) {
+            inputDescription.classList.add("error-border");
+        } else if (inputDescription.value.length < 100) {
             text += "<div>Краткое описание должно быть не менее 100 символов.</div>";
-        }
+            inputDescription.classList.add("error-border");
+        } else inputDescription.classList.remove("error-border");
 
-        console.log(fileInputIs);
 
         if (text !== '') {
-            alert(text);
+            document.getElementById('textError').innerHTML  = text;
+            openModal.click();
             event.preventDefault();
         }
     });
@@ -225,6 +237,10 @@
         image.src = '';
         TageCharacterCount.textContent = 'Введено 0 тегов.';
         descriptionCharacterCount.textContent = 'Введено 0 символов.';
+        nameBook.classList.remove("error-border");
+        inputCategory.classList.remove("error-border");
+        tegBookInput.classList.remove("error-border");
+        inputDescription.classList.remove("error-border");
     }
 
     fileInput.onchange = (e) => {
