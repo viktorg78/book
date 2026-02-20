@@ -190,6 +190,7 @@
             nameLoopInput.value = '';
             openModal.click();
         }else {
+            inputCycle.add(new Option(nameLoopInput.value.trim(), 'new_value'));
             document.getElementById('close-modal-loop').click()
         }
 
