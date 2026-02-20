@@ -35,7 +35,7 @@ $colorText: #19245A
       display: inline-flex
       flex-flow: column nowrap
       gap: 2rem
-      > div
+      div
         > label
           margin: 0
           padding-left: 1rem
@@ -76,4 +76,12 @@ $colorText: #19245A
         > button
           @include button1
           padding: 0.3rem 0.5rem
-
+      > .loop-control
+        display: flex
+        flex-flow: row nowrap
+        gap: 2rem
+        align-items: flex-end
+        > a
+          @include button1
+          padding: 0.2rem 0.5rem
+          margin-bottom: 0.1rem

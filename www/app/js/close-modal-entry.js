@@ -10,3 +10,9 @@ document.getElementById('modal-error').addEventListener('click', function (e) {
         document.getElementById('close-modal-error').click()
     }
 });
+
+document.getElementById('modal-loop').addEventListener('click', function (e) {
+    if (e.target === this) {
+        document.getElementById('close-modal-loop').click()
+    }
+});

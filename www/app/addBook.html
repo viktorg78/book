@@ -71,6 +71,23 @@
         </div>
         <!-- Конец Модальное окна -->
 
+        <!-- Модальное окно циклов -->
+        <div class="css-modal-target" id="modal-loop">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-loop" title="Закрыть">&times;</a>
+                <form id="formLoop">
+                    <div class="formEmpty">
+                        <h3>СОЗДАТЬ НОВЫЙ ЦИКЛ</h3>
+                        <input type="text" id="nameLoopInput" placeholder="Название цикла">
+                        <button type="submit">Вход</button>
+                    </div>
+                </form>
+                <div id="text-loop"></div>
+
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+
 
         <div class="add-book">
             <form id="formNewBook">
@@ -121,14 +138,17 @@
                             <textarea maxlength="400" id="inputDescription" rows="5"></textarea>
                         </div>
 
-                        <div>
-                            <label for="inputCycle">Книга входит в цикл:</label>
-                            <select id="inputCycle">
-                                <option value="" selected disabled hidden>Выберите значение</option>
-                                <option value="1">Цикл 1</option>
-                                <option value="1">Цикл 2</option>
-                                <option value="1">Цикл 3</option>
-                            </select>
+                        <div class="loop-control">
+                            <div>
+                                <label for="inputCycle">Книга входит в цикл:</label>
+                                <select id="inputCycle">
+                                    <option value="" selected disabled hidden>Выберите значение</option>
+                                    <option value="1">Цикл 1</option>
+                                    <option value="1">Цикл 2</option>
+                                    <option value="1">Цикл 3</option>
+                                </select>
+                            </div>
+                            <a href="#modal-loop">Создать цикл</a>
                         </div>
                         <div>
                             <button type="reset" onclick="res()">Очистить</button>
@@ -152,17 +172,40 @@
     const formNewBook = document.getElementById('formNewBook');
     const nameBook = document.getElementById('nameBook');
     const inputCategory = document.getElementById('inputCategory');
+    const formLoop = document.getElementById('formLoop');
+    const inputCycle = document.getElementById('inputCycle');
+    const nameLoopInput = document.getElementById('nameLoopInput');
 
-    nameBook.addEventListener('focus', () =>{
+    formLoop.addEventListener('submit', e => {
+        const inputCycleArray = Array.from(inputCycle.options).map(option => option.text);
+        const nameLoop = e.target.elements[0].value.trim().toUpperCase();
+        const arrayLoop = inputCycleArray.map(str => str.trim().toUpperCase())
+
+        let text = '';
+        if (arrayLoop.includes(nameLoop)){
+            e.preventDefault();
+            document.getElementById('close-modal-loop').click()
+            text += "<div>У вас уже есть цикл с таким названием!</div>";
+            document.getElementById('textError').innerHTML = text;
+            nameLoopInput.value = '';
+            openModal.click();
+        }else {
+            document.getElementById('close-modal-loop').click()
+        }
+
+    });
+
+
+    nameBook.addEventListener('focus', () => {
         nameBook.classList.remove("error-border");
     });
-    inputCategory.addEventListener('focus', () =>{
+    inputCategory.addEventListener('focus', () => {
         inputCategory.classList.remove("error-border");
     });
-    tegBookInput.addEventListener('focus', () =>{
+    tegBookInput.addEventListener('focus', () => {
         tegBookInput.classList.remove("error-border");
     });
-    inputDescription.addEventListener('focus', () =>{
+    inputDescription.addEventListener('focus', () => {
         inputDescription.classList.remove("error-border");
     });
 
@@ -194,7 +237,7 @@
 
 
         if (text !== '') {
-            document.getElementById('textError').innerHTML  = text;
+            document.getElementById('textError').innerHTML = text;
             openModal.click();
             event.preventDefault();
         }
