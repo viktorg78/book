@@ -88,95 +88,134 @@
         </div>
         <!-- Конец Модальное окна -->
 
+
         <div class="tab">
+<!--            вкладка 1-->
             <div class="tab-content" id="content-1">
-                Вкладка 1
+                <div class="add-book">
+                    <form id="formNewBook">
+                        <div class="cart-book">
+                            <div class="add-img">
+                                <a id="openModal" href="#modal-error">модал</a>
+                                <div class="preview">
+                                    <b>Обложка книги</b><br>
+                                    Размер изображения должен быть не менее 200 пикселей в ширину и 285 в высоту.<br>
+                                    Максимальный размер файла: 5 мб.
+                                </div>
+                                <label for="riss">
+                                    <div class="block-img">
+                                        <img id="e4r45t" src="">
+                                        <input id="riss" type="file" accept="image/png, image/jpeg"/>
+                                    </div>
+                                </label>
+                                <label for="riss" class="pseudo-button">загрузить обложку</label>
+                            </div>
+
+                            <div class="block-input">
+                                <div>
+                                    <label for="nameBook">Название книги:</label>
+                                    <input type="text" id="nameBook">
+                                </div>
+
+                                <div>
+                                    <label for="inputCategory">Жанр:</label>
+                                    <select id="inputCategory">
+                                        <option value="" selected disabled hidden>Выберите значение</option>
+                                        <option value="1">Детектив</option>
+                                        <option value="1">Фантастика</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="tegBook">
+                                        Тэги для поиска через пробел. <code>Максимум 5 тегов.</code>
+                                    </label><br>
+                                    <label for="tegBook" id="TageCharacterCount">Введено 0 тегов.</label>
+                                    <textarea id="tegBook" rows="2"></textarea>
+                                </div>
+
+                                <div>
+                                    <label for="inputDescription">
+                                        Краткое описание книги. Расскажите о чем она. <code>Максимум 400 символов.</code>
+                                    </label><br>
+                                    <label for="inputDescription" id="descriptionCharacterCount">Введено 0 символов.</label>
+                                    <textarea maxlength="400" id="inputDescription" rows="5"></textarea>
+                                </div>
+
+                                <div class="loop-control">
+                                    <div>
+                                        <label for="inputCycle">Книга входит в цикл:</label>
+                                        <select id="inputCycle">
+                                            <option value="" selected disabled hidden>Выберите значение</option>
+                                            <option value="1">Цикл 1</option>
+                                            <option value="1">Цикл 2</option>
+                                            <option value="1">Цикл 3</option>
+                                        </select>
+                                    </div>
+                                    <a href="#modal-loop">Создать цикл</a>
+                                </div>
+                                <div>
+                                    <button type="reset" onclick="res()">Очистить</button>
+                                    <button type="submit">Сохранить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+<!--            Вкладка 2-->
             <div class="tab-content" id="content-2">
-                Вкладка 2
-            </div>
-            <div class="tab-content" id="content-3">
-                Вкладка 3
-            </div>
-            <div class="tab-nav">
-                <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
-                <label for="tab-btn-1">Мои книги</label>
-                <input id="tab-btn-2" name="tab-btn" type="radio" value="">
-                <label for="tab-btn-2">Моя Библиотека (избранное)</label>
-                <input id="tab-btn-3" name="tab-btn" type="radio" value="">
-                <label for="tab-btn-3">Настройки</label>
-            </div>
-        </div>
+<!--                Данная вкладка должна быть доступной только после добавления книги. -->
+                <div class="add-chapter">
+                    <div>
+                        Блок для добавления главы
+                        <button>Добавить главу</button>
 
-        <div class="add-book">
-            <form id="formNewBook">
-                <div class="cart-book">
-                    <div class="add-img">
-                        <a id="openModal" href="#modal-error">модал</a>
-                        <div class="preview">
-                            <b>Обложка книги</b><br>
-                            Размер изображения должен быть не менее 200 пикселей в ширину и 285 в высоту.<br>
-                            Максимальный размер файла: 5 мб.
-                        </div>
-                        <label for="riss">
-                            <div class="block-img">
-                                <img id="e4r45t" src="">
-                                <input id="riss" type="file" accept="image/png, image/jpeg"/>
+                        <div class="form_toggle">
+                            <div class="form_toggle-item item-1">
+                                <input id="fid-1" type="radio" name="radio" value="off" checked>
+                                <label for="fid-1">OFF</label>
                             </div>
-                        </label>
-                        <label for="riss" class="pseudo-button">загрузить обложку</label>
-                    </div>
-
-                    <div class="block-input">
-                        <div>
-                            <label for="nameBook">Название книги:</label>
-                            <input type="text" id="nameBook">
+                            <div class="form_toggle-item item-2">
+                                <input id="fid-2" type="radio" name="radio" value="on">
+                                <label for="fid-2">ON</label>
+                            </div>
                         </div>
 
                         <div>
-                            <label for="inputCategory">Жанр:</label>
-                            <select id="inputCategory">
-                                <option value="" selected disabled hidden>Выберите значение</option>
-                                <option value="1">Детектив</option>
-                                <option value="1">Фантастика</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="tegBook">
-                                Тэги для поиска через пробел. <code>Максимум 5 тегов.</code>
-                            </label><br>
-                            <label for="tegBook" id="TageCharacterCount">Введено 0 тегов.</label>
-                            <textarea id="tegBook" rows="2"></textarea>
-                        </div>
-
-                        <div>
-                            <label for="inputDescription">
-                                Краткое описание книги. Расскажите о чем она. <code>Максимум 400 символов.</code>
-                            </label><br>
-                            <label for="inputDescription" id="descriptionCharacterCount">Введено 0 символов.</label>
-                            <textarea maxlength="400" id="inputDescription" rows="5"></textarea>
-                        </div>
-
-                        <div class="loop-control">
+                            <h3>глава 1</h3>
                             <div>
-                                <label for="inputCycle">Книга входит в цикл:</label>
-                                <select id="inputCycle">
-                                    <option value="" selected disabled hidden>Выберите значение</option>
-                                    <option value="1">Цикл 1</option>
-                                    <option value="1">Цикл 2</option>
-                                    <option value="1">Цикл 3</option>
-                                </select>
+                                Опубликована
                             </div>
-                            <a href="#modal-loop">Создать цикл</a>
                         </div>
                         <div>
-                            <button type="reset" onclick="res()">Очистить</button>
-                            <button type="submit">Сохранить</button>
+                            <h3>глава 2</h3>
+                            <div>
+                                Опубликована
+                            </div>
                         </div>
+                        <div>
+                            <h3>глава 3</h3>
+                            <div>
+                                Черновик
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        Блок для текста.
                     </div>
                 </div>
-            </form>
+            </div>
+
+            <div class="tab-nav">
+                <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
+                <label for="tab-btn-1">Настройка</label>
+                <input id="tab-btn-2" name="tab-btn" type="radio" value="">
+                <label for="tab-btn-2">Текст</label>
+            </div>
         </div>
+
+
     </main>
     <footer class="footer">Нижний блок</footer>
 </div>
