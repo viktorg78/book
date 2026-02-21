@@ -70,3 +70,8 @@ $backgroundColorAnnouncement: #bdc7d2
   flex-flow: column nowrap
   align-items: center
 
+@mixin tab-content-visible($n)  // работа с вкладкави. Показать вкладку content-Номер
+  #content-#{$n}:#{'has(~ .tab-nav > #tab-btn-#{$n}:checked)'}
+    @content
+
+
