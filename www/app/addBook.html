@@ -167,18 +167,21 @@
             <div class="tab-content" id="content-2">
 <!--                Данная вкладка должна быть доступной только после добавления книги. -->
                 <div class="add-chapter">
-                    <div>
-                        Блок для добавления главы
+                    <div class="add-chapter1">
                         <button>Добавить главу</button>
-
-                        <div class="form_toggle">
-                            <div class="form_toggle-item item-1">
-                                <input id="fid-1" type="radio" name="radio" value="off" checked>
-                                <label for="fid-1">OFF</label>
-                            </div>
-                            <div class="form_toggle-item item-2">
-                                <input id="fid-2" type="radio" name="radio" value="on">
-                                <label for="fid-2">ON</label>
+                        <div class="switch-with-signature">
+                            <div>Редактировать порядок сортировки</div>
+                            <div class="form_toggle">
+                                <fieldset class="toggle_group">
+                                    <div class="form_toggle-item item-1">
+                                        <input id="fid-1" type="radio" name="toggle" value="off" checked aria-checked="true">
+                                        <label for="fid-1">ВЫКЛ.</label>
+                                    </div>
+                                    <div class="form_toggle-item item-2">
+                                        <input id="fid-2" type="radio" name="toggle" value="on" aria-checked="false">
+                                        <label for="fid-2">ВКЛ.</label>
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
 
@@ -201,7 +204,7 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="add-chapter1">
                         Блок для текста.
                     </div>
                 </div>

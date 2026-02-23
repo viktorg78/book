@@ -67,7 +67,7 @@ function scripts() {
 }
 
 // Основная задача
-const dev = series(browserSyncServe, watchFiles);
+const dev = series(buildStyles, browserSyncServe, watchFiles);
 
 // Экспорт задач
 exports.buildStyles = buildStyles;

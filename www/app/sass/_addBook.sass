@@ -92,47 +92,91 @@ $colorText: #19245A
   align-items: center
 
 // переключатель
-$display-inline-block: inline-block
-$padding-horizontal: 15px
-$line-height: 34px
-$border-color: #999
-$border-width: 1px
-$border-radius: 6px
-$off-bg: #ffc5c5
-$on-bg: #bbffbb
+$toggle-display: inline-block
+$toggle-padding-x: 15px
+$toggle-line-height: 34px
+$toggle-border-color: $colorText
+$toggle-border-width: 1px
+$toggle-border-radius: 6px
+$toggle-off-bg: #ffc5c5
+$toggle-on-bg: #bbffbb
+$toggle-hover-bg: #f0f0f0
+$toggle-focus-outline: 2px solid #4CAF50
 
 .form_toggle
-  display: $display-inline-block
+  display: $toggle-display
   overflow: hidden
+  font-family: Arial, sans-serif // Единообразное отображение
+
+  // Группировка для доступности
+  .toggle_group
+    border: none
+    margin: 0
+    padding: 0
 
   .form_toggle-item
     float: left
-    display: $display-inline-block
+    display: $toggle-display
 
-    input[type=radio]
-      display: none
+    input[type="radio"]
+      display: none // Скрываем оригинальные радио‑кнопки
+
+      // Состояния фокуса
+      &:focus + label
+        outline: $toggle-focus-outline
+        outline-offset: 2px
 
     label
-      display: $display-inline-block
-      padding: 0 $padding-horizontal
-      line-height: $line-height
-      border: $border-width solid $border-color
+      display: $toggle-display
+      padding: 0 $toggle-padding-x
+      line-height: $toggle-line-height
+      border: $toggle-border-width solid $toggle-border-color
       cursor: pointer
       user-select: none
-      transition: background 0.3s ease
+      transition: all 0.3s ease // Плавные переходы для всех свойств
+      position: relative
 
-  .item-1
-    label
-      border-radius: $border-radius 0 0 $border-radius
-      border-right: none
+      // Эффект наведения
+      &:hover
+        background: $toggle-hover-bg
+        transform: translateY(-1px) // Лёгкое поднятие при наведении
 
-  .item-2
-    label
-      border-radius: 0 $border-radius $border-radius 0
-      border-right: $border-width solid $border-color
+  // Стилизация углов
+  .item-1 label
+    border-radius: $toggle-border-radius 0 0 $toggle-border-radius
+    border-right: none
 
-  .item-1 input[type=radio]:checked + label
-    background: $off-bg
+  .item-2 label
+    border-radius: 0 $toggle-border-radius $toggle-border-radius 0
+    border-left: none // Убираем дублирующую границу
 
-  .item-2 input[type=radio]:checked + label
-    background: $on-bg
+  // Активные состояния
+  .item-1 input[type="radio"]:checked + label
+    background: $toggle-off-bg
+    color: #d32f2f // Тёмно‑красный для OFF
+    font-weight: bold
+
+
+  .item-2 input[type="radio"]:checked + label
+    background: $toggle-on-bg
+    color: #2e7d32 // Тёмно‑зелёный для ON
+    font-weight: bold
+
+  // Адаптивность для мобильных устройств
+  @media (max-width: 480px)
+  .form_toggle-item label
+    padding: 0 10px // Уменьшаем отступы
+    line-height: 30px // Уменьшаем высоту строки
+
+.switch-with-signature
+  display: inline-flex
+  flex-flow: row nowrap
+  gap: 1rem
+  align-items: center
+
+.add-chapter1
+  display: flex
+  flex-flow: column nowrap
+  gap: 1rem
+  > button
+    @include button1
