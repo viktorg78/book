@@ -2,3 +2,11 @@
 package-lock.json
 node_modules/
 www/app/css/
+/www/app/addBook.html
+/www/app/addChapter.html
+/www/app/forgetPassword.html
+/www/app/index.html
+/www/app/myLibrary.html
+/www/app/reg.html
+/www/app/str2.html
+/www/dist/

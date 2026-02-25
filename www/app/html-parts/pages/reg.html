@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга [Регистрация]</title>
+    <link rel="stylesheet" href="css/main.min.css">
+    <script src="js/close-modal-entry.js" defer></script>
+</head>
+<body>
+<div class="page">
+    @@include('../header.html')
+    <main class="main">
+        <div class="heading">Регистрация</div>
+        <form>
+            <div class="forgot-your-password">
+                <input type="text" placeholder="Ваш логин">
+                <input type="email" placeholder="Ваш E-mail">
+                <input type="password" placeholder="Придумайте пароль">
+                <input type="password" placeholder="Повторите пароль">
+                <div class="reg">
+                    <button type="submit">Отправить письмо</button> <button type="reset">Очистить</button>
+                </div>
+
+            </div>
+        </form>
+    </main>
+    @@include('../footer.html')
+</div>
+</body>
+</html>
