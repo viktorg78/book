@@ -16,3 +16,9 @@ document.getElementById('modal-loop').addEventListener('click', function (e) {
         document.getElementById('close-modal-loop').click()
     }
 });
+
+document.getElementById('modal-add-chapter').addEventListener('click', function (e) {
+    if (e.target === this) {
+        document.getElementById('close-modal-add-chapter').click()
+    }
+});

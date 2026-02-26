@@ -40,6 +40,23 @@
         </div>
         <!-- Конец Модальное окна -->
 
+        <!-- Модальное окно добавление главы -->
+        <div class="css-modal-target" id="modal-add-chapter">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-add-chapter" title="Закрыть">&times;</a>
+                <form id="formAddChapter">
+                    <div class="formEmpty">
+                        <h3>СОЗДАТЬ ГЛАВУ</h3>
+                        <input type="text" id="nameAddChapterInput" placeholder="Название главы">
+                        <button type="submit">Создать</button>
+                    </div>
+                </form>
+                <div id="text-add-chapter"></div>
+
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+
 
         <div class="tab">
 <!--            вкладка 1-->
@@ -120,7 +137,7 @@
 <!--                Данная вкладка должна быть доступной только после добавления книги. -->
                 <div class="add-chapter">
                     <div class="add-chapter1">
-                        <button>Добавить главу</button>
+                        <button onclick="window.location.href='#modal-add-chapter'">Добавить главу</button>
                         <div class="switch-with-signature">
                             <div>Редактировать порядок сортировки</div>
                             <div class="form_toggle">
@@ -142,6 +159,7 @@
                             <div class="status published">
                                 Опубликована
                             </div>
+                            <button>Редактировать</button>
                         </li>
                         <li draggable="false" class="chapter-book">
                             <h3>глава 2</h3>
