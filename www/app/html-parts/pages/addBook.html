@@ -136,25 +136,26 @@
                                 </fieldset>
                             </div>
                         </div>
-
-                        <div class="chapter-book">
+                        <ol id="sortable-list" class="extraction">
+                        <li draggable="false" class="chapter-book">
                             <h3>глава 1</h3>
-                            <div>
+                            <div class="status published">
                                 Опубликована
                             </div>
-                        </div>
-                        <div class="chapter-book">
+                        </li>
+                        <li draggable="false" class="chapter-book">
                             <h3>глава 2</h3>
-                            <div>
+                            <div class="status published">
                                 Опубликована
                             </div>
-                        </div>
-                        <div class="chapter-book">
+                        </li>
+                        <li draggable="false" class="chapter-book">
                             <h3>глава 3</h3>
-                            <div>
+                            <div class="status draft">
                                 Черновик
                             </div>
-                        </div>
+                        </li>
+                        </ol>
                     </div>
                     <div class="add-chapter1">
                         Блок для текста.
@@ -186,6 +187,72 @@
     const formLoop = document.getElementById('formLoop');
     const inputCycle = document.getElementById('inputCycle');
     const nameLoopInput = document.getElementById('nameLoopInput');
+    // перетаскивание глав
+    const list = document.getElementById('sortable-list');
+    let draggingElement = null;
+    // Находим радиокнопки
+    const radioButtonsToggle = document.querySelectorAll('input[name="toggle"]');
+    const chapterBook = document.getElementsByClassName('chapter-book');
+
+    radioButtonsToggle.forEach(radio => {
+        radio.addEventListener('change', function(e) {
+            if (this.checked) {
+                if (this.value === 'on') {
+                    list.classList.add("on");
+                    for (let i = 0; i < chapterBook.length; i++) {
+                        chapterBook[i].setAttribute('draggable', 'true')
+                        chapterBook[i].style.cursor = 'move'
+                    }
+                } else {
+                    list.classList.remove("on");
+                    for (let i = 0; i < chapterBook.length; i++) {
+                        chapterBook[i].setAttribute('draggable', 'false')
+                        chapterBook[i].style.cursor = 'default'
+                    }
+                }
+            }
+        });
+    });
+
+    // 1. Начало перетаскивания
+    list.addEventListener('dragstart', (e) => {
+        draggingElement = e.target;
+        e.target.classList.add('dragging');
+    });
+
+    // 2. Конец перетаскивания
+    list.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+    });
+
+    // 3. Логика перетаскивания (определение места)
+    list.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Разрешаем сброс
+        const afterElement = getDragAfterElement(list, e.clientY);
+        if (afterElement == null) {
+            list.appendChild(draggingElement);
+        } else {
+            list.insertBefore(draggingElement, afterElement);
+        }
+    });
+
+    // Функция определения элемента, над которым находится курсор
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+
+
 
     formLoop.addEventListener('submit', e => {
         const inputCycleArray = Array.from(inputCycle.options).map(option => option.text);

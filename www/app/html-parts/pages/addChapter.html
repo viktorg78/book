@@ -7,14 +7,88 @@
     <script src="js/close-modal-entry.js" defer></script>
 </head>
 <body>
+<style>
+    #sortable-list li {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+        background-color: white;
+        cursor: move; /* Курсор перетаскивания */
+    }
+    #sortable-list li.dragging {
+        opacity: 0.5; /* Полупрозрачность при перетаскивании */
+        background-color: #f0f0f0;
+    }
+</style>
 <div class="page">
     @@include('../header.html')
     <main class="main">
         <h3>Название книга</h3>
         <div>добавить главу</div>
+        <input id="fid-2" type="radio" name="toggle" value="on">
+        <label for="fid-2">ВКЛ.</label>
+        <input id="fid-1" type="radio" name="toggle" value="off" checked>
+        <label for="fid-1">ВЫКЛ.</label>
+        <ol id="sortable-list">
+            <li draggable="true">Пункт 1</li>
+            <li draggable="true">Пункт 2</li>
+            <li draggable="true">Пункт 3</li>
+            <li draggable="true">Пункт 4</li>
+        </ol>
     </main>
     @@include('../footer.html')
 </div>
+<script>
+    const list = document.getElementById('sortable-list');
+    let draggingElement = null;
+    // Находим радиокнопки
+    const radioButtons = document.querySelectorAll('input[name="toggle"]');
 
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', function(e) {
+            if (this.checked) {
+                console.log("Выбрано значение: " + this.value);
+            }
+        });
+    });
+
+
+    // 1. Начало перетаскивания
+    list.addEventListener('dragstart', (e) => {
+        draggingElement = e.target;
+        e.target.classList.add('dragging');
+    });
+
+    // 2. Конец перетаскивания
+    list.addEventListener('dragend', (e) => {
+        e.target.classList.remove('dragging');
+    });
+
+    // 3. Логика перетаскивания (определение места)
+    list.addEventListener('dragover', (e) => {
+        e.preventDefault(); // Разрешаем сброс
+        const afterElement = getDragAfterElement(list, e.clientY);
+        if (afterElement == null) {
+            list.appendChild(draggingElement);
+        } else {
+            list.insertBefore(draggingElement, afterElement);
+        }
+    });
+
+    // Функция определения элемента, над которым находится курсор
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+</script>
 </body>
 </html>

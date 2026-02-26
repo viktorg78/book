@@ -109,6 +109,7 @@ function browserSyncServe(done) {
 function watchFiles() {
    watch(paths.sass, series(buildStyles, cssMin));
    watch(paths.js, series(scripts, server.reload));
+   watch(paths.htmlSrc, series(buildHtml));
    watch(paths.html).on('change', server.reload);
 }
 

@@ -179,6 +179,26 @@ $toggle-focus-outline: 2px solid #4CAF50
   gap: 1rem
   > button
     @include button1
+  .extraction
+    padding: 0 0.3rem
+    border-radius: 0.5rem
+  .on
+    background-color: white
+
 
 .chapter-book
-  background-color: #0d6efd
+  display: flex
+  flex-flow: row nowrap
+  gap: 1rem
+  align-items: center
+  margin: 0.5rem 0
+  user-select: none
+  .status
+    border: 1px
+    padding: 0.2rem 0.5rem
+    border-radius: 0.5rem
+  > .published
+    background-color: #bbffbb
+  > .draft
+    background-color: #c7c7c7
+
