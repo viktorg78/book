@@ -10,7 +10,155 @@
 <div class="page">
     @@include('../header.html')
     <main class="main">
-        Личный кабинет читателя
+        <div class="personal-Account">
+            <div class="container">
+                <img src="img/logo_mini.jpeg" id="title-img">
+                <img src="img/logo_mini.jpeg" id="avatar">
+            </div>
+            <div class="function-panel">
+                <div class="panel-1">
+                    <a href="#">иконка</a>
+                    <a href="#">иконка</a>
+                    <a href="#">иконка</a>
+                </div>
+                <div class="panel-1">
+                    <a href="#" title="Написать администратору">
+                        <img src="img/mail1.png" alt="E-mail" class="no-active-link"/>
+                        <img src="img/mail2.png" alt="E-mail" class="active-link"/></a>
+                </div>
+            </div>
+            <div class="tab">
+                <!--                вкладка 1 Моя библиотека -->
+                <div class="tab-content" id="content-1">
+                    <div class="my-library">
+                        <div class="list-of-books">
+                            <div class="book">
+                                <img src="img/logo_mini.jpeg">
+                                <div class="book-card-text">
+                                    <h3>Название книги</h3>
+                                    <div class="author">Автор:
+                                        <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на
+                                            страницу
+                                            автора</a>
+                                    </div>
+                                    <div class="brief-information-about-book">
+                                        краткая информация о книге краткая информация о книге краткая информация о книге
+                                    </div>
+
+                                    <div><b>Жанр книги:</b> Фантастика</div>
+                                    <div class="likes">
+                                        <div>10</div>
+                                        <img src="img/like.png" alt="Нравиться">
+                                        <button>+</button>
+                                        <button>-</button>
+                                    </div>
+                                    <div class="block-button">
+                                        <button>ЧИТАТЬ</button>
+                                        <button><img src="img/del.png">Удалить книгу</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="book">
+                                <img src="img/logo_mini.jpeg">
+                                <div class="book-card-text">
+                                    <h3>Название книги</h3>
+                                    <div class="author">Автор:
+                                        <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на
+                                            страницу
+                                            автора</a>
+                                    </div>
+                                    <div class="brief-information-about-book">
+                                        краткая информация о книге краткая информация о книге краткая информация о книге
+                                    </div>
+
+                                    <div><b>Жанр книги:</b> Фантастика</div>
+                                    <div class="likes">
+                                        <div>10</div>
+                                        <img src="img/like.png" alt="Нравиться">
+                                        <button>+</button>
+                                        <button>-</button>
+                                    </div>
+                                    <div class="block-button">
+                                        <button>ЧИТАТЬ</button>
+                                        <button><img src="img/del.png">Удалить книгу</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="book">
+                                <img src="img/logo_mini.jpeg">
+                                <div class="book-card-text">
+                                    <h3>Название книги</h3>
+                                    <div class="author">Автор:
+                                        <a href="#" title="Переход на страницу автора">Иванов Иван Иванович сылка на
+                                            страницу
+                                            автора</a>
+                                    </div>
+                                    <div class="brief-information-about-book">
+                                        краткая информация о книге краткая информация о книге краткая информация о книге
+                                    </div>
+
+                                    <div><b>Жанр книги:</b> Фантастика</div>
+                                    <div class="likes">
+                                        <div>10</div>
+                                        <img src="img/like.png" alt="Нравиться">
+                                        <button>+</button>
+                                        <button>-</button>
+                                    </div>
+                                    <div class="block-button">
+                                        <button>ЧИТАТЬ</button>
+                                        <button><img src="img/del.png">Удалить книгу</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                вкладка 2-->
+                <div class="tab-content" id="content-2">
+                    <div class="my-profile">
+                        <form>
+                            <div>
+                                <label for="f1">Загрузить главный рисунок</label>
+                                <input type="file" id="f1">
+                            </div>
+                            <div>
+                                <label for="f2">Загрузить Аватарку</label>
+                                <input type="file" id="f2">
+                            </div>
+                            <div>
+                                <label for="f3">Мой логин</label>
+                                <input type="text" id="f3">
+                            </div>
+                            <div>
+                                <label for="f4">Мой электронный адресс</label>
+                                <input type="email" id="f4">
+                            </div>
+                            <fieldset>
+                                <legend>Замена пароля</legend>
+                                <div>
+                                    <label for="f5">Новый пароль</label>
+                                    <input type="password" id="f5">
+                                </div>
+                                <div>
+                                    <label for="f6">Повторить пароль</label>
+                                    <input type="password" id="f6">
+                                </div>
+                            </fieldset>
+                            <div>
+                                <button type="reset">Очистить</button>
+                                <button type="submit">Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-nav">
+                    <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
+                    <label for="tab-btn-1">Моя библиотека</label>
+                    <input id="tab-btn-2" name="tab-btn" type="radio" value="">
+                    <label for="tab-btn-2">Мой профиль</label>
+                </div>
+            </div>
+        </div>
     </main>
     @@include('../footer.html')
 </div>

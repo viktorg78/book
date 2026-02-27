@@ -1,0 +1,66 @@
+@use "mixins" as *
+
+.personal-Account
+  display: flex
+  flex-flow: column nowrap
+  gap: 1rem
+  > .container
+    position: relative
+    display: inline-block
+    > #title-img
+      display: block
+      width: 100%
+      height: 10rem
+    > #avatar
+      position: absolute
+      z-index: 10
+      width: 8rem
+      height: 8rem
+      top: 1rem
+      left: 3rem
+      border: 3px solid #f9f9f9
+      border-radius: 0.5rem
+      box-sizing: border-box
+  > .function-panel
+    display: flex
+    flex-flow: row nowrap
+    gap: 2rem
+    align-items: center
+    padding: 0 1rem
+    justify-content: space-between
+    > .panel-1
+      display: inline-flex
+      flex-flow: row nowrap
+      align-items: center
+      gap: 1rem
+      > a
+        &:hover .active-link
+          display: block
+        &:hover .no-active-link
+          display: none
+      img
+        height: 1.2rem
+      .active-link
+        display: none
+      .no-active-link
+        display: block
+  .my-profile
+    display: flex
+    flex-flow: column nowrap
+    gap: 1rem
+    align-items: center
+    input
+      @include input1
+      font-size: 1rem
+      text-align: left
+    input[type=file]
+      @include input-file
+    button
+      @include button1
+      padding: 0.2rem 0.5rem
+      margin-right: 1rem
+    > form
+      > div
+        margin: 0.5rem 0
+
+
