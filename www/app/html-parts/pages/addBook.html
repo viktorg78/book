@@ -31,7 +31,7 @@
                     <div class="formEmpty">
                         <h3>СОЗДАТЬ НОВЫЙ ЦИКЛ</h3>
                         <input type="text" id="nameLoopInput" placeholder="Название цикла">
-                        <button type="submit">Вход</button>
+                        <button type="submit">создать</button>
                     </div>
                 </form>
                 <div id="text-loop"></div>
@@ -159,24 +159,33 @@
                             <div class="status published">
                                 Опубликована
                             </div>
-                            <button>Редактировать</button>
+                            <a><img src="img/edit.png" title="редактировать"></a>
                         </li>
                         <li draggable="false" class="chapter-book">
                             <h3>глава 2</h3>
                             <div class="status published">
                                 Опубликована
                             </div>
+                            <a><img src="img/edit.png" title="редактировать"></a>
                         </li>
                         <li draggable="false" class="chapter-book">
                             <h3>глава 3</h3>
                             <div class="status draft">
                                 Черновик
                             </div>
+                            <a><img src="img/edit.png" title="редактировать"></a>
                         </li>
                         </ol>
                     </div>
                     <div class="add-chapter1">
-                        Блок для текста.
+                        <form>
+                        <input type="text" placeholder="Название главы">
+                        <textarea rows="20" cols="100"></textarea>
+                        <div>
+                            <button type="submit">Сохранить</button>
+                            <button type="reset">Очистить</button>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -211,6 +220,23 @@
     // Находим радиокнопки
     const radioButtonsToggle = document.querySelectorAll('input[name="toggle"]');
     const chapterBook = document.getElementsByClassName('chapter-book');
+    // добавление главу
+    const formAddChapter = document.getElementById('formAddChapter');
+
+    formAddChapter.addEventListener('submit', e => {
+        const nameAddChapter = e.target.elements[0].value.trim();
+        const newItem = document.createElement('li');
+        newItem.classList.add('chapter-book');
+        newItem.setAttribute('draggable', 'false')
+        newItem.innerHTML = ' <h3>'+nameAddChapter+'</h3>' +
+            '<div class="status draft">' +
+            'Черновик' +
+            '</div>' +
+            '<a><img src="img/edit.png" title="редактировать"></a>';
+        list.appendChild(newItem);
+        document.getElementById('close-modal-add-chapter').click()
+        e.target.elements[0].value = '';
+    });
 
     radioButtonsToggle.forEach(radio => {
         radio.addEventListener('change', function(e) {
@@ -220,12 +246,14 @@
                     for (let i = 0; i < chapterBook.length; i++) {
                         chapterBook[i].setAttribute('draggable', 'true')
                         chapterBook[i].style.cursor = 'move'
+                        chapterBook[i].querySelector('a').style.visibility = 'hidden'
                     }
                 } else {
                     list.classList.remove("on");
                     for (let i = 0; i < chapterBook.length; i++) {
                         chapterBook[i].setAttribute('draggable', 'false')
                         chapterBook[i].style.cursor = 'default'
+                        chapterBook[i].querySelector('a').style.visibility = 'visible'
                     }
                 }
             }

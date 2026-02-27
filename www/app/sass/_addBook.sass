@@ -177,14 +177,19 @@ $toggle-focus-outline: 2px solid #4CAF50
   display: flex
   flex-flow: column nowrap
   gap: 1rem
-  > button
+  button
     @include button1
+    padding: 0.2rem 0.5rem
   .extraction
     padding: 0 0.3rem
     border-radius: 0.5rem
   .on
     background-color: white
-
+  input
+    @include input1
+  textarea
+    @include input1
+    text-align: left
 
 .chapter-book
   display: flex
@@ -201,4 +206,12 @@ $toggle-focus-outline: 2px solid #4CAF50
     background-color: #bbffbb
   > .draft
     background-color: #c7c7c7
+  > a
+    display: inline-flex
+    flex-flow: row nowrap
+    align-items: center
+    &:hover
+      padding-left: 0.2rem
+    > img
+      width: 1.5rem
 
