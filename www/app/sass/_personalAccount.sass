@@ -44,6 +44,7 @@
         display: none
       .no-active-link
         display: block
+
   .my-profile
     display: flex
     flex-flow: column nowrap
@@ -53,14 +54,14 @@
       @include input1
       font-size: 1rem
       text-align: left
-    input[type=file]
-      @include input-file
+    input[type='file']
+      @include inputFile
     button
       @include button1
       padding: 0.2rem 0.5rem
       margin-right: 1rem
     > form
+      min-width: 50%
+      max-width: 80%
       > div
         margin: 0.5rem 0
-
-

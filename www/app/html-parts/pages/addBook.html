@@ -223,42 +223,100 @@
     // добавление главу
     const formAddChapter = document.getElementById('formAddChapter');
 
+
     formAddChapter.addEventListener('submit', e => {
-        const nameAddChapter = e.target.elements[0].value.trim();
+        e.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        const nameInput = e.target.querySelector('input[type="text"]');
+        if (!nameInput) {
+            console.error('Поле ввода названия главы не найдено');
+            return;
+        }
+
+        const nameAddChapter = nameInput.value.trim();
+
+        // Валидация: проверяем, что поле не пустое
+        if (nameAddChapter === '') {
+            alert('Название главы не может быть пустым');
+            return;
+        }
+
+        // Создаём элементы через DOM API (безопаснее, чем innerHTML)
         const newItem = document.createElement('li');
         newItem.classList.add('chapter-book');
-        newItem.setAttribute('draggable', 'false')
-        newItem.innerHTML = ' <h3>'+nameAddChapter+'</h3>' +
-            '<div class="status draft">' +
-            'Черновик' +
-            '</div>' +
-            '<a><img src="img/edit.png" title="редактировать"></a>';
+        newItem.setAttribute('draggable', 'false');
+
+        const heading = document.createElement('h3');
+        heading.textContent = nameAddChapter; // Безопасное присвоение текста
+
+        const statusDiv = document.createElement('div');
+        statusDiv.className = 'status draft';
+        statusDiv.textContent = 'Черновик';
+
+        const editLink = document.createElement('a');
+        const editImg = document.createElement('img');
+        editImg.src = 'img/edit.png';
+        editImg.alt = 'Редактировать';
+        editImg.title = 'Редактировать';
+
+        editLink.appendChild(editImg);
+
+        // Собираем структуру
+        newItem.appendChild(heading);
+        newItem.appendChild(statusDiv);
+        newItem.appendChild(editLink);
+
+        // Добавляем элемент в список
         list.appendChild(newItem);
-        document.getElementById('close-modal-add-chapter').click()
-        e.target.elements[0].value = '';
+
+        // Закрываем модальное окно, если кнопка существует
+        const closeButton = document.getElementById('close-modal-add-chapter');
+        if (closeButton) {
+            closeButton.click();
+        } else {
+            console.warn('Кнопка закрытия модального окна не найдена');
+        }
+
+        // Очищаем поле ввода
+        nameInput.value = '';
     });
 
+
     radioButtonsToggle.forEach(radio => {
-        radio.addEventListener('change', function(e) {
-            if (this.checked) {
-                if (this.value === 'on') {
-                    list.classList.add("on");
-                    for (let i = 0; i < chapterBook.length; i++) {
-                        chapterBook[i].setAttribute('draggable', 'true')
-                        chapterBook[i].style.cursor = 'move'
-                        chapterBook[i].querySelector('a').style.visibility = 'hidden'
-                    }
-                } else {
-                    list.classList.remove("on");
-                    for (let i = 0; i < chapterBook.length; i++) {
-                        chapterBook[i].setAttribute('draggable', 'false')
-                        chapterBook[i].style.cursor = 'default'
-                        chapterBook[i].querySelector('a').style.visibility = 'visible'
-                    }
+        radio.addEventListener('change', () => {
+            const isDragModeEnabled = radio.value === 'on';
+
+            // Обновляем класс контейнера
+            list.classList.toggle('on', isDragModeEnabled);
+
+            // Применяем изменения ко всем элементам глав
+            Array.from(chapterBook).forEach(chapter => {
+                // Устанавливаем атрибут draggable
+                chapter.draggable = isDragModeEnabled;
+
+                // Меняем курсор
+                chapter.style.cursor = isDragModeEnabled ? 'move' : 'default';
+
+                // Находим ссылку редактирования
+                const editLink = chapter.querySelector('a');
+                if (editLink) {
+                    editLink.style.visibility = isDragModeEnabled ? 'hidden' : 'visible';
                 }
-            }
+
+                // Обновляем ARIA‑атрибуты для доступности
+                chapter.setAttribute('aria-grabbed', isDragModeEnabled.toString());
+                if (isDragModeEnabled) {
+                    chapter.setAttribute('role', 'listitem');
+                    chapter.setAttribute('aria-label', `Глава "${chapter.querySelector('h3')?.textContent || 'Без названия'}" — перетаскиваемая`);
+                } else {
+                    chapter.removeAttribute('aria-grabbed');
+                    chapter.removeAttribute('role');
+                    chapter.removeAttribute('aria-label');
+                }
+            });
         });
     });
+
 
     // 1. Начало перетаскивания
     list.addEventListener('dragstart', (e) => {
@@ -278,6 +336,9 @@
         if (afterElement == null) {
             list.appendChild(draggingElement);
         } else {
+            // list.insertBefore = function(newNode, referenceNode) {
+            //     this.insertBefore(newNode, referenceNode);
+            // };
             list.insertBefore(draggingElement, afterElement);
         }
     });
@@ -300,25 +361,90 @@
 
 
 
-    formLoop.addEventListener('submit', e => {
-        const inputCycleArray = Array.from(inputCycle.options).map(option => option.text);
-        const nameLoop = e.target.elements[0].value.trim().toUpperCase();
-        const arrayLoop = inputCycleArray.map(str => str.trim().toUpperCase())
+    // formLoop.addEventListener('submit', e => {
+    //     const inputCycleArray = Array.from(inputCycle.options).map(option => option.text);
+    //     const nameLoop = e.target.elements[0].value.trim().toUpperCase();
+    //     const arrayLoop = inputCycleArray.map(str => str.trim().toUpperCase())
+    //
+    //     let text = '';
+    //     if (arrayLoop.includes(nameLoop)){
+    //         e.preventDefault();
+    //         document.getElementById('close-modal-loop').click()
+    //         text += "<div>У вас уже есть цикл с таким названием!</div>";
+    //         document.getElementById('textError').innerHTML = text;
+    //         nameLoopInput.value = '';
+    //         openModal.click();
+    //     }else {
+    //         inputCycle.add(new Option(nameLoopInput.value.trim(), 'new_value'));
+    //         document.getElementById('close-modal-loop').click()
+    //     }
+    //
+    // });
 
-        let text = '';
-        if (arrayLoop.includes(nameLoop)){
-            e.preventDefault();
-            document.getElementById('close-modal-loop').click()
-            text += "<div>У вас уже есть цикл с таким названием!</div>";
-            document.getElementById('textError').innerHTML = text;
-            nameLoopInput.value = '';
-            openModal.click();
-        }else {
-            inputCycle.add(new Option(nameLoopInput.value.trim(), 'new_value'));
-            document.getElementById('close-modal-loop').click()
+    formLoop.addEventListener('submit', e => {
+        e.preventDefault(); // Предотвращаем стандартную отправку формы
+
+        // Получаем поле ввода названия цикла
+        const nameInput = e.target.querySelector('input[type="text"]');
+        if (!nameInput) {
+            console.error('Поле ввода названия цикла не найдено');
+            return;
         }
 
+        const nameLoop = nameInput.value.trim();
+
+        // Валидация: проверяем, что поле не пустое
+        if (nameLoop === '') {
+            showError('Название цикла не может быть пустым');
+            return;
+        }
+
+        // Нормализуем для сравнения: приводим к верхнему регистру и убираем пробелы
+        const normalizedName = nameLoop.toUpperCase();
+        const existingOptions = Array.from(inputCycle.options)
+            .map(option => option.text.trim().toUpperCase());
+
+        // Проверяем, существует ли уже такой цикл
+        if (existingOptions.includes(normalizedName)) {
+            showError('У вас уже есть цикл с таким названием!');
+            nameInput.value = ''; // Очищаем поле
+            return;
+        }
+
+        // Добавляем новый цикл
+        const newOption = new Option(nameLoop, nameLoop); // Используем осмысленное значение
+        inputCycle.add(newOption);
+
+        // Показываем успех
+        //showSuccess('Цикл успешно добавлен!');
+
+        // Закрываем модальное окно, если кнопка существует
+        const closeButton = document.getElementById('close-modal-loop');
+        if (closeButton) {
+            closeButton.click();
+        } else {
+            console.warn('Кнопка закрытия модального окна не найдена');
+        }
+
+        // Очищаем поле ввода
+        nameInput.value = '';
     });
+
+    // Вспомогательные функции для отображения сообщений
+    function showError(message) {
+        const errorElement = document.getElementById('textError');
+        if (errorElement) {
+            errorElement.textContent = message; // Безопасное присвоение текста
+            errorElement.style.display = 'block';
+            openModal.click(); // Показываем модальное окно с ошибкой
+        }
+    }
+
+    function showSuccess(message) {
+        alert(message); // Простое уведомление об успехе
+        // Альтернатива: можно добавить элемент с сообщением об успехе на страницу
+    }
+
 
 
     nameBook.addEventListener('focus', () => {

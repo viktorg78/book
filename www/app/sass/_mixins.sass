@@ -39,9 +39,36 @@ $backgroundColorAnnouncement: #bdc7d2
     background-color: #fff
     outline: none // Убирает стандартный контур браузера
     box-shadow: 0 0 5px rgba(23, 33, 84, 0.5) // Тень
+@mixin inputFile
+  &[type="file"]
+    padding: 10px 15px
+    //margin: 8px 0
+    box-sizing: border-box //Учитывает padding и border в ширине
+    border: 2px solid #ccc // Граница
+    border-radius: 0.5rem // Скругление
+    font-size: 1rem // Размер шрифта
+    color: #333 // Цвет текста
+    background-color: #f9f9f9 // Цвет фона
+    transition: 0.3s // Плавный переход
+    position: relative
+  &[type="file"]::file-selector-button
+    //margin-left: auto
+    position: absolute
+    margin: 0
+    right: 0 /* Отступ от правого края */
+    top: 0
+    height: 100%
+    padding: 0 15px
+    //margin: 8px 0
+    box-sizing: border-box //Учитывает padding и border в ширине
+    //border: 2px solid $colorText // Граница
+    border-radius: 0 0.5rem 0.5rem 0 // Скругление
+    color: $backgroundColor // Цвет текста
+    background-color: $colorText // Цвет фона
+    transition: 0.3s // Плавный переход
+  &[type="file"]::file-selector-button:hover
+    background-color: rgba(38, 51, 108, 0.82)
 
-@mixin input-file
-  background-color: #2e7d32
 
 @mixin a1
   font-size: 1em
