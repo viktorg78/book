@@ -11,17 +11,12 @@
     @@include('../header.html')
     <main class="main">
         <!-- Модальное окно ошибок -->
-        <div class="css-modal-target" id="modal-error">
-            <div class="cmt" id="windowBody">
-                <a href="#close" class="css-modal-close" id="close-modal-error" title="Закрыть">&times;</a>
-                <div class="heading-error">
-                    ОШИБКА
-                </div>
-                <div id="textError"></div>
-
-            </div>
-        </div>
+        @@include('../messageError.html')
         <!-- Конец Модальное окна -->
+
+        <!-- Модальное окно оповещений -->
+        @@include('../messageNotification.html')
+        <!-- Конец Модальное оповещений -->
 
         <!-- Модальное окно циклов -->
         <div class="css-modal-target" id="modal-loop">
@@ -30,7 +25,7 @@
                 <form id="formLoop">
                     <div class="formEmpty">
                         <h3>СОЗДАТЬ НОВЫЙ ЦИКЛ</h3>
-                        <input type="text" id="nameLoopInput" placeholder="Название цикла">
+                        <input type="text" id="nameLoopInput" placeholder="Название цикла" autocomplete="off">
                         <button type="submit">создать</button>
                     </div>
                 </form>
@@ -114,7 +109,7 @@
                                     <div>
                                         <label for="inputCycle">Книга входит в цикл:</label>
                                         <select id="inputCycle">
-                                            <option value="" selected disabled hidden>Выберите значение</option>
+                                            <option value="1" selected>Не входит в цикл</option>
                                             <option value="1">Цикл 1</option>
                                             <option value="1">Цикл 2</option>
                                             <option value="1">Цикл 3</option>
@@ -361,25 +356,6 @@
 
 
 
-    // formLoop.addEventListener('submit', e => {
-    //     const inputCycleArray = Array.from(inputCycle.options).map(option => option.text);
-    //     const nameLoop = e.target.elements[0].value.trim().toUpperCase();
-    //     const arrayLoop = inputCycleArray.map(str => str.trim().toUpperCase())
-    //
-    //     let text = '';
-    //     if (arrayLoop.includes(nameLoop)){
-    //         e.preventDefault();
-    //         document.getElementById('close-modal-loop').click()
-    //         text += "<div>У вас уже есть цикл с таким названием!</div>";
-    //         document.getElementById('textError').innerHTML = text;
-    //         nameLoopInput.value = '';
-    //         openModal.click();
-    //     }else {
-    //         inputCycle.add(new Option(nameLoopInput.value.trim(), 'new_value'));
-    //         document.getElementById('close-modal-loop').click()
-    //     }
-    //
-    // });
 
     formLoop.addEventListener('submit', e => {
         e.preventDefault(); // Предотвращаем стандартную отправку формы
@@ -413,10 +389,10 @@
 
         // Добавляем новый цикл
         const newOption = new Option(nameLoop, nameLoop); // Используем осмысленное значение
+        newOption.selected = true;
         inputCycle.add(newOption);
 
-        // Показываем успех
-        //showSuccess('Цикл успешно добавлен!');
+
 
         // Закрываем модальное окно, если кнопка существует
         const closeButton = document.getElementById('close-modal-loop');
@@ -428,23 +404,11 @@
 
         // Очищаем поле ввода
         nameInput.value = '';
+
+        // Показываем успех
+        showSuccess('Цикл успешно добавлен!');
+
     });
-
-    // Вспомогательные функции для отображения сообщений
-    function showError(message) {
-        const errorElement = document.getElementById('textError');
-        if (errorElement) {
-            errorElement.textContent = message; // Безопасное присвоение текста
-            errorElement.style.display = 'block';
-            openModal.click(); // Показываем модальное окно с ошибкой
-        }
-    }
-
-    function showSuccess(message) {
-        alert(message); // Простое уведомление об успехе
-        // Альтернатива: можно добавить элемент с сообщением об успехе на страницу
-    }
-
 
 
     nameBook.addEventListener('focus', () => {
@@ -464,32 +428,33 @@
         let text = '';
 
         if (nameBook.value.trim() === "") {
-            text += "<div>Поле 'Название книги' не может быть пустым.</div>";
+            text += "Поле 'Название книги' не может быть пустым."+`\n`;
             nameBook.classList.add("error-border");
         } else nameBook.classList.remove("error-border");
 
         if (!inputCategory.value) {
-            text += "<div>Выберите жанр книги.</div>";
+            text += "Выберите жанр книги."+`\n`;
             inputCategory.classList.add("error-border");
         } else inputCategory.classList.remove("error-border");
 
         if (tegBookInput.value.trim() === "") {
-            text += "<div>Должен быть хотя бы 1 тег.</div>";
+            text += "Должен быть хотя бы 1 тег."+`\n`;
             tegBookInput.classList.add("error-border");
         } else tegBookInput.classList.remove("error-border");
 
         if (inputDescription.value.trim() === "") {
-            text += "<div>Краткое описание не должно быть пустым.</div>";
+            text += "Краткое описание не должно быть пустым."+`\n`;
             inputDescription.classList.add("error-border");
         } else if (inputDescription.value.length < 100) {
-            text += "<div>Краткое описание должно быть не менее 100 символов.</div>";
+            text += "Краткое описание должно быть не менее 100 символов."+`\n`;
             inputDescription.classList.add("error-border");
         } else inputDescription.classList.remove("error-border");
 
 
         if (text !== '') {
-            document.getElementById('textError').innerHTML = text;
-            openModal.click();
+            // document.getElementById('textError').innerHTML = text;
+            // openModal.click();
+            showError(text);
             event.preventDefault();
         }
     });
