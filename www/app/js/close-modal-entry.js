@@ -5,14 +5,6 @@ document.getElementById('modal-entry').addEventListener('click', function (e) {
     }
 });
 
-document.getElementById('modal-error').addEventListener('click', function (e) {
-    if (e.target === this) {
-        document.getElementById('close-modal-error').click()
-    }
-});
-
-
-
 document.getElementById('modal-loop').addEventListener('click', function (e) {
     if (e.target === this) {
         document.getElementById('close-modal-loop').click()
@@ -25,31 +17,45 @@ document.getElementById('modal-add-chapter').addEventListener('click', function 
     }
 });
 
-// Вспомогательные функции для отображения сообщений
+// отображения сообщений об ошибке
 function showError(message) {
-    const errorElement = document.getElementById('textError');
-    if (errorElement) {
-        errorElement.textContent = message; // Безопасное присвоение текста
-        errorElement.style.display = 'block';
-        openModal.click(); // Показываем модальное окно с ошибкой
-    }
-}
+    const openModalError = checkElementById('openModalError');
+    const textError = checkElementById('textError');
+    const modalError = checkElementById('modal-error');
+    const closeModalError = checkElementById('close-modal-error');
 
+    if (openModalError && textError && modalError && closeModalError) {
+        textError.textContent = message;
+        textError.style.display = 'block';
+        openModalError.click();
+
+        modalError.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModalError.click()
+            }
+        });
+    }
+
+}
+// отображения сообщений
 function showSuccess(message) {
     const openModalNotification = checkElementById('openModalNotification')
     const notificationElement = checkElementById('textNotification');
     const modalNotification = checkElementById('modal-notification');
     const closeModalNotification = checkElementById('close-modal-notification');
 
-    notificationElement.textContent = message;
-    notificationElement.style.display = 'block';
-    openModalNotification.click();
+    if (openModalNotification && notificationElement && modalNotification && closeModalNotification){
+        notificationElement.textContent = message;
+        notificationElement.style.display = 'block';
+        openModalNotification.click();
 
-    modalNotification.addEventListener('click', function (e) {
-        if (e.target === this) {
-            closeModalNotification.click()
-        }
-    });
+        modalNotification.addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModalNotification.click()
+            }
+        });
+    }
+
 
 }
 

@@ -60,7 +60,6 @@
                     <form id="formNewBook">
                         <div class="cart-book">
                             <div class="add-img">
-                                <a id="openModal" href="#modal-error">модал</a>
                                 <div class="preview">
                                     <b>Обложка книги</b><br>
                                     Размер изображения должен быть не менее 200 пикселей в ширину и 285 в высоту.<br>
@@ -198,7 +197,6 @@
 <script>
     const image = document.getElementById("e4r45t");
     const fileInput = document.getElementById("riss");
-    const openModal = document.getElementById('openModal');
     const tegBookInput = document.getElementById('tegBook'); // Переименовано для ясности
     const TageCharacterCount = document.getElementById('TageCharacterCount');
     const inputDescription = document.getElementById('inputDescription');
@@ -452,8 +450,6 @@
 
 
         if (text !== '') {
-            // document.getElementById('textError').innerHTML = text;
-            // openModal.click();
             showError(text);
             event.preventDefault();
         }
@@ -511,8 +507,7 @@
 
         // Проверка типа файла
         if (!file.type.startsWith('image/')) {
-            document.getElementById('textError').textContent = 'Пожалуйста, выберите изображение (PNG или JPEG)';
-            openModal.click();
+            showError("Пожалуйста, выберите изображение (PNG или JPEG)");
             fileInput.value = '';
             return;
         }
@@ -520,8 +515,7 @@
         // Проверка размера файла (максимум 5 МБ)
         const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
-            document.getElementById('textError').textContent = 'Файл слишком большой. Максимальный размер — 5 МБ.';
-            openModal.click();
+            showError('Файл слишком большой. Максимальный размер — 5 МБ.')
             fileInput.value = '';
             return;
         }
@@ -548,9 +542,7 @@
                 actualHeight < minHeight ||
                 actualHeight > maxHeight
             ) {
-                document.getElementById('textError').textContent =
-                    'Размеры изображения должны быть близки к 200×280 px (±10 %).';
-                openModal.click();
+                showError('Размеры изображения должны быть близки к 200×280 px (±10 %).')
                 URL.revokeObjectURL(objectURL);
                 fileInput.value = '';
                 return;
