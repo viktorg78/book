@@ -1,6 +1,5 @@
 @use "mixins" as *
-
-$colorText: #19245A
+@use "variables" as *
 
 .add-book
   @include flexColumn1
@@ -48,11 +47,11 @@ $colorText: #19245A
           width: 100%
           margin: 0
           box-sizing: border-box //Учитывает padding и border в ширине
-          border: 2px solid #ccc // Граница
+          border: 2px solid $inputBorder // Граница
           border-radius: 5px // Скругление углов
           font-size: 16px // Размер шрифта
-          color: #333 // Цвет текста
-          background-color: #f9f9f9 // Цвет фона
+          color: $inputColor // Цвет текста
+          background-color: $inputBackgroundColor // Цвет фона
           padding: 10px 15px
           transition: 0.3s // Плавный переход
           resize: none
@@ -61,16 +60,16 @@ $colorText: #19245A
           padding: 10px 15px
           margin: 0
           box-sizing: border-box //Учитывает padding и border в ширине
-          border: 2px solid #ccc // Граница
+          border: 2px solid $inputBorder // Граница
           border-radius: 5px // Скругление углов
           font-size: 16px // Размер шрифта
-          color: #333 // Цвет текста
-          background-color: #f9f9f9 // Цвет фона
+          color: $inputColor // Цвет текста
+          background-color: $inputBackgroundColor // Цвет фона
           transition: 0.3s // Плавный переход
           text-align: left
           &:focus
-            border-color: #eae5e5 // Цвет границы при фокусе
-            background-color: #fff
+            border-color: $focusBorderColor // Цвет границы при фокусе
+            background-color: $inputBackgroundColor
             outline: none // Убирает стандартный контур браузера
             box-shadow: 0 0 5px rgba(23, 33, 84, 0.5) // Тень
         > button
@@ -91,17 +90,7 @@ $colorText: #19245A
   gap: 2rem
   align-items: center
 
-// переключатель
-$toggle-display: inline-block
-$toggle-padding-x: 15px
-$toggle-line-height: 34px
-$toggle-border-color: $colorText
-$toggle-border-width: 1px
-$toggle-border-radius: 6px
-$toggle-off-bg: #ffc5c5
-$toggle-on-bg: #bbffbb
-$toggle-hover-bg: #f0f0f0
-$toggle-focus-outline: 2px solid #4CAF50
+
 
 .form_toggle
   display: $toggle-display
@@ -152,13 +141,13 @@ $toggle-focus-outline: 2px solid #4CAF50
   // Активные состояния
   .item-1 input[type="radio"]:checked + label
     background: $toggle-off-bg
-    color: #d32f2f // Тёмно‑красный для OFF
+    color: $toggle-off-bg-color // Тёмно‑красный для OFF
     font-weight: bold
 
 
   .item-2 input[type="radio"]:checked + label
     background: $toggle-on-bg
-    color: #2e7d32 // Тёмно‑зелёный для ON
+    color: $toggle-on-bg-color // Тёмно‑зелёный для ON
     font-weight: bold
 
   // Адаптивность для мобильных устройств
@@ -184,7 +173,7 @@ $toggle-focus-outline: 2px solid #4CAF50
     padding: 0 0.3rem
     border-radius: 0.5rem
   .on
-    background-color: white
+    background-color: $toggle-on-background-color
   input
     @include input1
   textarea
@@ -203,9 +192,9 @@ $toggle-focus-outline: 2px solid #4CAF50
     padding: 0.2rem 0.5rem
     border-radius: 0.5rem
   > .published
-    background-color: #bbffbb
+    background-color: $chapters-published-background-color
   > .draft
-    background-color: #c7c7c7
+    background-color: $chapters-draft-background-color
   > a
     display: inline-flex
     flex-flow: row nowrap

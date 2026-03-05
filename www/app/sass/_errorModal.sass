@@ -1,5 +1,7 @@
+@use "variables" as *
+
 .heading-error
-  color: red
+  color: $errorColor
   font-weight: bold
   letter-spacing: 0.1em
 #openModalError // скрыть ссылку на открытие модального окна
@@ -9,11 +11,11 @@
   display: none
 
 .error-border
-  border: 2px solid red !important
+  border: 2px solid $errorBorder !important
 #textError
   white-space: pre-line
 
 .heading-notification
-  color: blue
+  color: $headingColor
   font-weight: bold
   letter-spacing: 0.1em
