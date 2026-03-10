@@ -3,6 +3,30 @@
 @use "variables" as *
 body
   background-color: #697479
+  position: relative
+.sidebar
+  background-color: #697479
+  position: fixed
+  top: 0
+  left: 0
+  overflow-x: hidden
+  height: 100%
+  z-index: 10
+  padding-top: 1rem
+  padding-left: 1rem
+  padding-right: 2.5rem
+  transition: transform 5s ease-in-out /* Плавность */
+  transform: translateX(-100%) /* Прячем за левый край */
+  &:target
+    background-color: #2e7d32
+    transform: translateX(0) /* Выезжает */
+  > .css-close
+    position: absolute
+    top: 5px
+    right: 10px
+    font-size: 2em
+    cursor: pointer
+    color: $colorText
 header
   display: flex
   flex-flow: nowrap row

@@ -6,19 +6,24 @@
     <link rel="stylesheet" href="css/reider.min.css">
 </head>
 <body>
+<div class="sidebar" id="open">
+    <a href="#close" class="css-close" id="close" title="Закрыть">&times;</a>
+    <h2>Оглавление книги</h2>
+    <ul>
+        <li><a href="#">Глава 1. Введение</a></li>
+        <li><a href="#">Глава 2. Введение</a></li>
+        <li><a href="#">Глава 3. Введение</a></li>
+
+    </ul>
+</div>
 <header>
-    <button id="toggleMenu">Оглавление1</button>
+    <a href="#open">Оглавление1</a>
+    <a href="#" >Оглавление2</a>
+    <a >Оглавление3</a>
+    <a >Оглавление4</a>
 </header>
 <main>
-    <div class="sidebar" id="sidebar">
-        <h2>Оглавление книги</h2>
-        <ul>
-            <li><a href="#">Глава 1. Введение</a></li>
-            <li><a href="#">Глава 2. Введение</a></li>
-            <li><a href="#">Глава 3. Введение</a></li>
 
-        </ul>
-    </div>
 
     текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст текст
     текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст текст
@@ -30,6 +35,14 @@
     текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст текст
     текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст текст
 </main>
-
+<script>
+    document.addEventListener('click', e =>{
+        const open = document.getElementById('open')
+        const close = document.getElementById('close')
+        if (!open.contains(e.target)){
+           close.click()
+        }
+    })
+</script>
 </body>
 </html>
