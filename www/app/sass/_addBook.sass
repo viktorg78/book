@@ -130,11 +130,19 @@
         background: $toggle-hover-bg
 
   // Стилизация углов
-  .item-1 label
+  .item-1 label .item-3
     border-radius: $toggle-border-radius 0 0 $toggle-border-radius
     border-right: none
 
-  .item-2 label
+  .item-2 label .item-4
+    border-radius: 0 $toggle-border-radius $toggle-border-radius 0
+    border-left: none // Убираем дублирующую границу
+
+  .item-3 label
+    border-radius: $toggle-border-radius 0 0 $toggle-border-radius
+    border-right: none
+
+  .item-4 label
     border-radius: 0 $toggle-border-radius $toggle-border-radius 0
     border-left: none // Убираем дублирующую границу
 
@@ -149,6 +157,19 @@
     background: $toggle-on-bg
     color: $toggle-on-bg-color // Тёмно‑зелёный для ON
     font-weight: bold
+
+
+  .item-3 input[type="radio"]:checked + label
+    background: $I-am-a-dreamer-bg
+    color: $I-am-a-dreamer-color
+    font-weight: bold
+
+
+  .item-4 input[type="radio"]:checked + label
+    background: $toggle-on-bg
+    color: $toggle-on-bg-color // Тёмно‑зелёный для ON
+    font-weight: bold
+
 
   // Адаптивность для мобильных устройств
   @media (max-width: 480px)
