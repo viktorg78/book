@@ -2,10 +2,9 @@
 @use "mixins" as *
 @use "variables" as *
 body
-  background-color: #697479
   position: relative
 .sidebar
-  background-color: #697479
+  background-color: $rider-sidebar-background-color
   position: fixed
   top: 0
   left: 0
@@ -17,8 +16,9 @@ body
   padding-right: 2.5rem
   transition: transform 5s ease-in-out /* Плавность */
   transform: translateX(-100%) /* Прячем за левый край */
+  color: $rider-sidebar-color
   &:target
-    background-color: #2e7d32
+    //background-color: #2e7d32
     transform: translateX(0) /* Выезжает */
   > .css-close
     position: absolute
@@ -34,9 +34,39 @@ header
   align-items: center
   justify-content: space-between
   background-color: $background-color-hover
-  height: 3rem
-  padding: 0 1rem
 
 main
   padding: 1rem 3rem
+  color: $rider-main-color
+  background-color: $rider-main-background-color
+  min-height: 100vh
+  user-select: none
+.block-link
+  display: inline-flex
+  flex-flow: nowrap row
+  align-items: center
+  gap: 0.8rem
+  padding: 0.5rem 1.5rem
+.link-rider
+  height: 2.2rem
+  box-sizing: border-box
+  display: inline-flex
+  flex-flow: row nowrap
+  gap: 0.2rem
+  align-items: center
+  background-color: $link-rider-background-color
+  padding: 0.2rem 0.5rem
+  border-radius: 0.5rem
+  &:hover
+    background-color: $link-rider-hover-color
+    cursor: pointer
+  &:disabled
+    background-color: $link-rider-hover-color
+    cursor: not-allowed
+    opacity: 0.8
+    pointer-events: none
+  > img
+    height: 2rem
+  > div
+    color: $link-rider-color
 
