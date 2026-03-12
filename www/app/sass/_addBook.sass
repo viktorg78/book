@@ -166,8 +166,8 @@
 
 
   .item-4 input[type="radio"]:checked + label
-    background: $toggle-on-bg
-    color: $toggle-on-bg-color // Тёмно‑зелёный для ON
+    background: $I-am-a-writer-bg
+    color: $I-am-a-writer-color // Тёмно‑зелёный для ON
     font-weight: bold
 
 
@@ -200,6 +200,18 @@
   textarea
     @include input1
     text-align: left
+  #editor
+    background-color: white
+    border: 1px solid #cccccc
+    border-radius: 5px
+    padding: 15px
+    min-height: 50rem
+    margin-top: 10px
+    margin-bottom: 1rem
+    color: black
+    text-align: left
+    flex-grow: 1
+    width: 90vw
 
 .chapter-book
   display: flex
@@ -224,4 +236,14 @@
       padding-left: 0.2rem
     > img
       width: 1.5rem
+.editing-panel
+  display: flex
+  flex-flow: row wrap
+  align-items: center
+  gap: 0.5rem
+  > a
+    @include button1
+    padding: 0.2rem 0.5rem
+    img
+      height: 1.5rem
 

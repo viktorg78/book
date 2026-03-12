@@ -174,7 +174,20 @@
                     <div class="add-chapter1">
                         <form>
                         <input type="text" placeholder="Название главы">
-                        <textarea rows="20" cols="100"></textarea>
+                        <div class="editing-panel">
+                            <a title="Выровнять текст по центру" onclick="format('justifyCenter')"><img src="/img/align_center.png"></a>
+                            <a title="Выровнять текст по левому краю" onclick="format('justifyLeft')"><img src="/img/align_left.png"></a>
+                            <a title="Выровнять текст по правому краю" onclick="format('justifyRight')"><img src="/img/align_right.png"></a>
+                            <a title="Выровнять текст по обоим краям" onclick="format('justifyFull')"><img src="/img/align_edges.png"></a>
+                            <div></div>
+                            <a title="Жирный текст" onclick="format('bold')"><img src="/img/bold_text.png"></a>
+                            <a title="Подчеркнутый текст" onclick="format('underline')"><img src="/img/underlined_text.png"></a>
+                            <a title="Курсив текст" onclick="format('italic')"><img src="/img/italics_text.png"></a>
+                        </div>
+<!--                        <textarea rows="20" cols="100"></textarea>-->
+                            <div id="editor" contenteditable="true">
+                                Редактируемый текст...
+                            </div>
                         <div>
                             <button type="submit">Сохранить</button>
                             <button type="reset">Очистить</button>
@@ -215,6 +228,11 @@
     const chapterBook = document.getElementsByClassName('chapter-book');
     // добавление главу
     const formAddChapter = document.getElementById('formAddChapter');
+
+    function format(command, value = null) {
+        // Выполняет команду форматирования для выделенного текста
+        document.execCommand(command, false, value);
+    }
 
 
     formAddChapter.addEventListener('submit', e => {

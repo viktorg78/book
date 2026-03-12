@@ -1,0 +1,24 @@
+@use "mixins" as *
+@use "variables" as *
+
+.writers-page
+  display: flex
+  flex-flow: column nowrap
+  gap: 1rem
+  align-items: center
+  justify-content: center
+  > .manifest
+    @include announcement
+  > .name-rider
+    @include heading
+  .cycle
+    padding: 0.3rem 0.6rem
+    border: 3px solid $cycle-bc
+    box-shadow: inset 3px 3px 4px rgba(0,0,0,0.4)
+    margin-bottom: 1rem
+    > .name-cycle
+      text-align: center
+      text-transform: uppercase
+      font-size: 1.2rem
+      font-weight: bold
+      padding-bottom: 1rem
