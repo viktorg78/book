@@ -128,7 +128,10 @@ function clear() {
 
 // Оптимизация изображений
 function img() {
-   return src(paths.img, { encoding: false })
+   return src([
+       paths.img,
+       '!www/app/img/favicon.ico'
+   ], { encoding: false })
        .pipe(
            imagemin({
               interlaced: true,
@@ -139,6 +142,11 @@ function img() {
            })
        )
        .pipe(dest('www/dist/img'));
+}
+
+function copyFavicon() {
+    return src('www/app/img/favicon.ico', { encoding: false })
+        .pipe(dest('www/dist/')); // копируем в корень dist
 }
 
 // Полная очистка сборки
@@ -166,7 +174,7 @@ function Build(done){
 const dev = series(buildHtml, buildStyles, cssMin ,browserSyncServe, watchFiles);
 
 // Сборка проекта
-const build = series(clean, img, buildStyles, minifyHtml, Build)
+const build = series(clean, img, buildStyles, minifyHtml, copyFavicon, Build)
 
 // Экспорт задач
 export {
@@ -180,6 +188,7 @@ export {
    clear,
    buildHtml,
    minifyHtml,
+   copyFavicon,
    build,
    dev as default
 };
