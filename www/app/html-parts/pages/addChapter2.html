@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга [Добавить главу 2]</title>
+    <link rel="stylesheet" href="css/main.min.css">
+    <script src="js/close-modal-entry.js" defer></script>
+</head>
+<body>
+<div class="page">
+    @@include('../header.html')
+    <main class="main">
+        <div class="heading">Добавить главу</div>
+        <form>
+            <div class="block-input">
+
+                <div>
+                    <label for="nameBook">Название книги:</label>
+                    <input type="text" >
+                </div>
+            <textarea>
+                текст главы
+            </textarea>
+            <input type="submit" value="Сохранить">
+            <input type="reset" value="Стереть">
+            </div>
+        </form>
+    </main>
+    @@include('../footer.html')
+</div>
+</body>
+</html>

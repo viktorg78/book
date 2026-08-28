@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>Книга [Добавить книгу]</title>
     <link rel="stylesheet" href="css/main.min.css">
+<!--    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>-->
+    <script src="/libs/vue.js"></script>
+    <script type="module" src="js/formVue.js" defer></script>
     <script src="js/close-modal-entry.js" defer></script>
 </head>
 <body>
-<div class="page">
+<div class="page" id="app">
     @@include('../header.html')
     <main class="main">
         <!-- Модальное окно ошибок -->
@@ -18,22 +21,7 @@
         @@include('../messageNotification.html')
         <!-- Конец Модальное оповещений -->
 
-        <!-- Модальное окно циклов -->
-        <div class="css-modal-target" id="modal-loop">
-            <div class="cmt">
-                <a href="#close" class="css-modal-close" id="close-modal-loop" title="Закрыть">&times;</a>
-                <form id="formLoop">
-                    <div class="formEmpty">
-                        <h3>СОЗДАТЬ НОВЫЙ ЦИКЛ</h3>
-                        <input type="text" id="nameLoopInput" placeholder="Название цикла" autocomplete="off">
-                        <button type="submit">создать</button>
-                    </div>
-                </form>
-                <div id="text-loop"></div>
 
-            </div>
-        </div>
-        <!-- Конец Модальное окна -->
 
         <!-- Модальное окно добавление главы -->
         <div class="css-modal-target" id="modal-add-chapter">
@@ -67,8 +55,18 @@
                                 </div>
                                 <label for="riss">
                                     <div class="block-img">
-                                        <img id="e4r45t" src="">
-                                        <input id="riss" type="file" accept="image/png, image/jpeg"/>
+                                        <img
+                                                v-if="imageUrl"
+                                                id="e4r45t_"
+                                                :src="imageUrl"
+                                                alt="Превью обложки"
+                                        />
+                                        <input
+                                            id="riss"
+                                            type="file"
+                                            accept="image/png, image/jpeg"
+                                            @change="handleFileChange"
+                                        />
                                     </div>
                                 </label>
                                 <label for="riss" class="pseudo-button">загрузить обложку</label>
@@ -77,47 +75,55 @@
                             <div class="block-input">
                                 <div>
                                     <label for="nameBook">Название книги:</label>
-                                    <input type="text" id="nameBook">
+                                    <input type="text" id="nameBook" v-model="nameBook">
                                 </div>
 
                                 <div>
                                     <label for="inputCategory">Жанр:</label>
-                                    <select id="inputCategory">
-                                        <option value="" selected disabled hidden>Выберите значение</option>
-                                        <option value="1">Детектив</option>
-                                        <option value="1">Фантастика</option>
+                                    <select id="inputCategory" v-model="genreId">
+                                        <option value="0">Выберите значение</option>
+                                        <option v-for="genre in genres" :key="genre.id" :value="genre.id">
+                                            {{genre.name}}
+                                        </option>
                                     </select>
                                 </div>
                                 <div>
                                     <label for="tegBook">
                                         Тэги для поиска через пробел. <code>Максимум 5 тегов.</code>
                                     </label><br>
-                                    <label for="tegBook" id="TageCharacterCount">Введено 0 тегов.</label>
-                                    <textarea id="tegBook" rows="2"></textarea>
+                                    <label for="tegBook">Введено {{tagsCount}} из 5 тегов.</label>
+                                    <textarea id="tegBook" rows="2" v-model="tagsText"></textarea>
                                 </div>
 
                                 <div>
                                     <label for="inputDescription">
                                         Краткое описание книги. Расскажите о чем она. <code>Максимум 400 символов.</code>
                                     </label><br>
-                                    <label for="inputDescription" id="descriptionCharacterCount">Введено 0 символов.</label>
-                                    <textarea maxlength="400" id="inputDescription" rows="5"></textarea>
+                                    <label for="inputDescription">
+                                        Введено {{ descriptionText.length }} символов.
+                                    </label>
+                                    <textarea
+                                            maxlength="400"
+                                            id="inputDescription"
+                                            rows="5"
+                                            v-model="descriptionText"
+                                    ></textarea>
                                 </div>
 
                                 <div class="loop-control">
                                     <div>
                                         <label for="inputCycle">Книга входит в цикл:</label>
-                                        <select id="inputCycle">
-                                            <option value="1" selected>Не входит в цикл</option>
-                                            <option value="1">Цикл 1</option>
-                                            <option value="1">Цикл 2</option>
-                                            <option value="1">Цикл 3</option>
+                                        <select id="inputCycle" v-model="cycleId">
+                                            <option value="0">Не входит в цикл</option>
+                                            <option v-for="val in cycles" :key="val.id" :value="val.id">
+                                                {{val.cycle}}
+                                            </option>
                                         </select>
                                     </div>
-                                    <a href="#modal-loop">Создать цикл</a>
+                                    <a href="#">Создать цикл</a>
                                 </div>
-                                <div>
-                                    <button type="reset" onclick="res()">Очистить</button>
+                                <div class="block-button">
+                                    <button type="button" @click="handleClear">Очистить</button>
                                     <button type="submit">Сохранить</button>
                                 </div>
                             </div>
@@ -173,7 +179,7 @@
                     </div>
                     <div class="add-chapter1">
                         <form>
-                        <input type="text" placeholder="Название главы">
+                        <input type="text" placeholder="Название главы" v-model="nameChapter">
                         <div class="editing-panel">
                             <a title="Выровнять текст по центру" onclick="format('justifyCenter')"><img src="/img/align_center.png"></a>
                             <a title="Выровнять текст по левому краю" onclick="format('justifyLeft')"><img src="/img/align_left.png"></a>
@@ -184,10 +190,10 @@
                             <a title="Подчеркнутый текст" onclick="format('underline')"><img src="/img/underlined_text.png"></a>
                             <a title="Курсив текст" onclick="format('italic')"><img src="/img/italics_text.png"></a>
                         </div>
-<!--                        <textarea rows="20" cols="100"></textarea>-->
-                            <div id="editor" contenteditable="true">
-                                Редактируемый текст...
-                            </div>
+                        <textarea rows="20" cols="100" v-model="textChapter"></textarea>
+<!--                            <div id="editor" contenteditable="true">-->
+<!--                                Редактируемый текст...-->
+<!--                            </div>-->
                         <div>
                             <button type="submit">Сохранить</button>
                             <button type="reset">Очистить</button>
@@ -201,384 +207,11 @@
                 <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
                 <label for="tab-btn-1">Настройка</label>
                 <input id="tab-btn-2" name="tab-btn" type="radio" value="">
-                <label for="tab-btn-2">Текст</label>
+                <label for="tab-btn-2">Главы</label>
             </div>
         </div>
     </main>
     @@include('../footer.html')
 </div>
-<script>
-    const image = document.getElementById("e4r45t");
-    const fileInput = document.getElementById("riss");
-    const tegBookInput = document.getElementById('tegBook'); // Переименовано для ясности
-    const TageCharacterCount = document.getElementById('TageCharacterCount');
-    const inputDescription = document.getElementById('inputDescription');
-    const descriptionCharacterCount = document.getElementById('descriptionCharacterCount');
-    const formNewBook = document.getElementById('formNewBook');
-    const nameBook = document.getElementById('nameBook');
-    const inputCategory = document.getElementById('inputCategory');
-    const formLoop = document.getElementById('formLoop');
-    const inputCycle = document.getElementById('inputCycle');
-    const nameLoopInput = document.getElementById('nameLoopInput');
-    // перетаскивание глав
-    const list = document.getElementById('sortable-list');
-    let draggingElement = null;
-    // Находим радиокнопки
-    const radioButtonsToggle = document.querySelectorAll('input[name="toggle"]');
-    const chapterBook = document.getElementsByClassName('chapter-book');
-    // добавление главу
-    const formAddChapter = document.getElementById('formAddChapter');
-
-    function format(command, value = null) {
-        // Выполняет команду форматирования для выделенного текста
-        document.execCommand(command, false, value);
-    }
-
-
-    formAddChapter.addEventListener('submit', e => {
-        e.preventDefault(); // Предотвращаем стандартную отправку формы
-
-        const nameInput = e.target.querySelector('input[type="text"]');
-        if (!nameInput) {
-            console.error('Поле ввода названия главы не найдено');
-            return;
-        }
-
-        const nameAddChapter = nameInput.value.trim();
-
-        // Валидация: проверяем, что поле не пустое
-        if (nameAddChapter === '') {
-            alert('Название главы не может быть пустым');
-            return;
-        }
-
-        // Создаём элементы через DOM API (безопаснее, чем innerHTML)
-        const newItem = document.createElement('li');
-        newItem.classList.add('chapter-book');
-        newItem.setAttribute('draggable', 'false');
-
-        const heading = document.createElement('h3');
-        heading.textContent = nameAddChapter; // Безопасное присвоение текста
-
-        const statusDiv = document.createElement('div');
-        statusDiv.className = 'status draft';
-        statusDiv.textContent = 'Черновик';
-
-        const editLink = document.createElement('a');
-        const editImg = document.createElement('img');
-        editImg.src = 'img/edit.png';
-        editImg.alt = 'Редактировать';
-        editImg.title = 'Редактировать';
-
-        editLink.appendChild(editImg);
-
-        // Собираем структуру
-        newItem.appendChild(heading);
-        newItem.appendChild(statusDiv);
-        newItem.appendChild(editLink);
-
-        // Добавляем элемент в список
-        list.appendChild(newItem);
-
-        // Закрываем модальное окно, если кнопка существует
-        const closeButton = document.getElementById('close-modal-add-chapter');
-        if (closeButton) {
-            closeButton.click();
-        } else {
-            console.warn('Кнопка закрытия модального окна не найдена');
-        }
-
-        // Очищаем поле ввода
-        nameInput.value = '';
-    });
-
-
-    radioButtonsToggle.forEach(radio => {
-        radio.addEventListener('change', () => {
-            const isDragModeEnabled = radio.value === 'on';
-
-            // Обновляем класс контейнера
-            list.classList.toggle('on', isDragModeEnabled);
-
-            // Применяем изменения ко всем элементам глав
-            Array.from(chapterBook).forEach(chapter => {
-                // Устанавливаем атрибут draggable
-                chapter.draggable = isDragModeEnabled;
-
-                // Меняем курсор
-                chapter.style.cursor = isDragModeEnabled ? 'move' : 'default';
-
-                // Находим ссылку редактирования
-                const editLink = chapter.querySelector('a');
-                if (editLink) {
-                    editLink.style.visibility = isDragModeEnabled ? 'hidden' : 'visible';
-                }
-
-                // Обновляем ARIA‑атрибуты для доступности
-                chapter.setAttribute('aria-grabbed', isDragModeEnabled.toString());
-                if (isDragModeEnabled) {
-                    chapter.setAttribute('role', 'listitem');
-                    chapter.setAttribute('aria-label', `Глава "${chapter.querySelector('h3')?.textContent || 'Без названия'}" — перетаскиваемая`);
-                } else {
-                    chapter.removeAttribute('aria-grabbed');
-                    chapter.removeAttribute('role');
-                    chapter.removeAttribute('aria-label');
-                }
-            });
-        });
-    });
-
-
-    // 1. Начало перетаскивания
-    list.addEventListener('dragstart', (e) => {
-        draggingElement = e.target;
-        e.target.classList.add('dragging');
-    });
-
-    // 2. Конец перетаскивания
-    list.addEventListener('dragend', (e) => {
-        e.target.classList.remove('dragging');
-    });
-
-    // 3. Логика перетаскивания (определение места)
-    list.addEventListener('dragover', (e) => {
-        e.preventDefault(); // Разрешаем сброс
-        const afterElement = getDragAfterElement(list, e.clientY);
-        if (afterElement == null) {
-            list.appendChild(draggingElement);
-        } else {
-            // list.insertBefore = function(newNode, referenceNode) {
-            //     this.insertBefore(newNode, referenceNode);
-            // };
-            list.insertBefore(draggingElement, afterElement);
-        }
-    });
-
-    // Функция определения элемента, над которым находится курсор
-    function getDragAfterElement(container, y) {
-        const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
-
-        return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect();
-            const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) {
-                return { offset: offset, element: child };
-            } else {
-                return closest;
-            }
-        }, { offset: Number.NEGATIVE_INFINITY }).element;
-    }
-
-
-
-
-
-    formLoop.addEventListener('submit', e => {
-        e.preventDefault(); // Предотвращаем стандартную отправку формы
-
-        // Получаем поле ввода названия цикла
-        const nameInput = e.target.querySelector('input[type="text"]');
-        if (!nameInput) {
-            console.error('Поле ввода названия цикла не найдено');
-            return;
-        }
-
-        const nameLoop = nameInput.value.trim();
-
-        // Валидация: проверяем, что поле не пустое
-        if (nameLoop === '') {
-            showError('Название цикла не может быть пустым');
-            return;
-        }
-
-        // Нормализуем для сравнения: приводим к верхнему регистру и убираем пробелы
-        const normalizedName = nameLoop.toUpperCase();
-        const existingOptions = Array.from(inputCycle.options)
-            .map(option => option.text.trim().toUpperCase());
-
-        // Проверяем, существует ли уже такой цикл
-        if (existingOptions.includes(normalizedName)) {
-            showError('У вас уже есть цикл с таким названием!');
-            nameInput.value = ''; // Очищаем поле
-            return;
-        }
-
-        // Добавляем новый цикл
-        const newOption = new Option(nameLoop, nameLoop); // Используем осмысленное значение
-        newOption.selected = true;
-        inputCycle.add(newOption);
-
-
-
-        // Закрываем модальное окно, если кнопка существует
-        const closeButton = document.getElementById('close-modal-loop');
-        if (closeButton) {
-            closeButton.click();
-        } else {
-            console.warn('Кнопка закрытия модального окна не найдена');
-        }
-
-        // Очищаем поле ввода
-        nameInput.value = '';
-
-        // Показываем успех
-        showSuccess('Цикл успешно добавлен!');
-
-    });
-
-
-    nameBook.addEventListener('focus', () => {
-        nameBook.classList.remove("error-border");
-    });
-    inputCategory.addEventListener('focus', () => {
-        inputCategory.classList.remove("error-border");
-    });
-    tegBookInput.addEventListener('focus', () => {
-        tegBookInput.classList.remove("error-border");
-    });
-    inputDescription.addEventListener('focus', () => {
-        inputDescription.classList.remove("error-border");
-    });
-
-    formNewBook.addEventListener('submit', event => {
-        let text = '';
-
-        if (nameBook.value.trim() === "") {
-            text += "Поле 'Название книги' не может быть пустым."+`\n`;
-            nameBook.classList.add("error-border");
-        } else nameBook.classList.remove("error-border");
-
-        if (!inputCategory.value) {
-            text += "Выберите жанр книги."+`\n`;
-            inputCategory.classList.add("error-border");
-        } else inputCategory.classList.remove("error-border");
-
-        if (tegBookInput.value.trim() === "") {
-            text += "Должен быть хотя бы 1 тег."+`\n`;
-            tegBookInput.classList.add("error-border");
-        } else tegBookInput.classList.remove("error-border");
-
-        if (inputDescription.value.trim() === "") {
-            text += "Краткое описание не должно быть пустым."+`\n`;
-            inputDescription.classList.add("error-border");
-        } else if (inputDescription.value.length < 100) {
-            text += "Краткое описание должно быть не менее 100 символов."+`\n`;
-            inputDescription.classList.add("error-border");
-        } else inputDescription.classList.remove("error-border");
-
-
-        if (text !== '') {
-            showError(text);
-            event.preventDefault();
-        }
-    });
-
-    inputDescription.addEventListener("input", () => {
-        // Обрезаем до 400 символов *до* подсчёта
-        inputDescription.value = inputDescription.value.slice(0, 400);
-        const textLength = inputDescription.value.length;
-        descriptionCharacterCount.textContent = 'Введено ' + textLength + ' символов.';
-    });
-
-    tegBookInput.addEventListener("input", () => {
-        // Разделяем строку по пробелам и фильтруем пустые элементы
-        const tags = tegBookInput.value.trim().split(/\s+/).filter(tag => tag.length > 0);
-        const tagCount = tags.length;
-
-        switch (tagCount) {
-            case 1:
-                TageCharacterCount.textContent = 'Введён ' + tagCount + ' тег.';
-                break;
-            case 2:
-            case 3:
-            case 4:
-                TageCharacterCount.textContent = 'Введено ' + tagCount + ' тега.';
-                break;
-            default:
-                TageCharacterCount.textContent = 'Введено ' + tagCount + ' тегов.';
-        }
-
-        // Ограничиваем количество тегов до 5
-        if (tagCount > 5) {
-            // Собираем первые 5 тегов и обновляем значение поля
-            tegBookInput.value = tags.slice(0, 5).join(' ');
-            TageCharacterCount.textContent = 'Введено 5 тегов (максимум).';
-        }
-    });
-
-    function res() {
-        image.src = '';
-        TageCharacterCount.textContent = 'Введено 0 тегов.';
-        descriptionCharacterCount.textContent = 'Введено 0 символов.';
-        nameBook.classList.remove("error-border");
-        inputCategory.classList.remove("error-border");
-        tegBookInput.classList.remove("error-border");
-        inputDescription.classList.remove("error-border");
-    }
-
-    fileInput.onchange = (e) => {
-        if (!fileInput.files || !fileInput.files[0]) {
-            return;
-        }
-
-        const file = fileInput.files[0];
-
-        // Проверка типа файла
-        if (!file.type.startsWith('image/')) {
-            showError("Пожалуйста, выберите изображение (PNG или JPEG)");
-            fileInput.value = '';
-            return;
-        }
-
-        // Проверка размера файла (максимум 5 МБ)
-        const maxSize = 5 * 1024 * 1024;
-        if (file.size > maxSize) {
-            showError('Файл слишком большой. Максимальный размер — 5 МБ.')
-            fileInput.value = '';
-            return;
-        }
-
-        const objectURL = URL.createObjectURL(file);
-        const img = new Image();
-
-        img.onload = () => {
-            const targetWidth = 200;
-            const targetHeight = 280;
-            const tolerance = 0.10;
-
-            const minWidth = targetWidth * (1 - tolerance);
-            const maxWidth = targetWidth * (1 + tolerance);
-            const minHeight = targetHeight * (1 - tolerance);
-            const maxHeight = targetHeight * (1 + tolerance);
-
-            const actualWidth = img.naturalWidth;
-            const actualHeight = img.naturalHeight;
-
-            if (
-                actualWidth < minWidth ||
-                actualWidth > maxWidth ||
-                actualHeight < minHeight ||
-                actualHeight > maxHeight
-            ) {
-                showError('Размеры изображения должны быть близки к 200×280 px (±10 %).')
-                URL.revokeObjectURL(objectURL);
-                fileInput.value = '';
-                return;
-            }
-
-            image.src = objectURL;
-            image.style.display = 'block';
-            image.onload = () => URL.revokeObjectURL(objectURL);
-        };
-
-        img.onerror = () => {
-            alert('Не удалось загрузить изображение. Проверьте файл.');
-            URL.revokeObjectURL(objectURL);
-            fileInput.value = '';
-        };
-
-        img.src = objectURL;
-    };
-</script>
 </body>
 </html>

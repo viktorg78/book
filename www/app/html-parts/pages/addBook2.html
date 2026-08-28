@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга [Добавить книгу]</title>
+    <link rel="stylesheet" href="css/main.min.css">
+    <script src="/libs/vue.js"></script>
+    <script src="js/addBook.js" defer></script>
+    <script src="js/close-modal-entry.js" defer></script>
+</head>
+<body>
+<div class="page" id="app">
+    @@include('../header.html')
+    <main class="main">
+        <!-- Модальное окно ошибок -->
+        @@include('../messageError.html')
+        <!-- Конец Модальное окна -->
+
+        <!-- Модальное окно оповещений -->
+        @@include('../messageNotification.html')
+        <!-- Конец Модальное оповещений -->
+        <div class="add-book">
+            <form id="formNewBook">
+                <div class="cart-book">
+                    <div class="add-img">
+                        <div class="preview">
+                            <b>Обложка книги</b><br>
+                            Размер изображения должен быть не менее 200 пикселей в ширину и 285 в высоту.<br>
+                            Максимальный размер файла: 5 мб.
+                        </div>
+                        <label for="riss">
+                            <div class="block-img">
+                                <img
+                                        v-if="imageUrl"
+                                        id="e4r45t_"
+                                        :src="imageUrl"
+                                        alt="Превью обложки"
+                                />
+                                <input
+                                        id="riss"
+                                        type="file"
+                                        accept="image/png, image/jpeg"
+                                        @change="handleFileChange"
+                                />
+                            </div>
+                        </label>
+                        <label for="riss" class="pseudo-button">загрузить обложку</label>
+                    </div>
+
+                    <div class="block-input">
+                        <div>
+                            <label for="nameBook">Название книги:</label>
+                            <input type="text" id="nameBook" v-model="nameBook">
+                        </div>
+
+                        <div>
+                            <label for="inputCategory">Жанр:</label>
+                            <select id="inputCategory" v-model="genreId">
+                                <option value="0">Выберите значение</option>
+                                <option v-for="genre in genres" :key="genre.id" :value="genre.id">
+                                    {{genre.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="tegBook">
+                                Тэги для поиска через пробел. <code>Максимум 5 тегов.</code>
+                            </label><br>
+                            <label for="tegBook">Введено {{tagsCount}} из 5 тегов.</label>
+                            <textarea id="tegBook" rows="2" v-model="tagsText"></textarea>
+                        </div>
+
+                        <div>
+                            <label for="inputDescription">
+                                Краткое описание книги. Расскажите о чем она. <code>Максимум 400 символов.</code>
+                            </label><br>
+                            <label for="inputDescription">
+                                Введено {{ descriptionText.length }} символов.
+                            </label>
+                            <textarea
+                                    maxlength="400"
+                                    id="inputDescription"
+                                    rows="5"
+                                    v-model="descriptionText"
+                            ></textarea>
+                        </div>
+
+                        <div class="loop-control">
+                            <div>
+                                <label for="inputCycle">Книга входит в цикл:</label>
+                                <select id="inputCycle" v-model="cycleId">
+                                    <option value="0">Не входит в цикл</option>
+                                    <option v-for="val in cycles" :key="val.id" :value="val.id">
+                                        {{val.cycle}}
+                                    </option>
+                                </select>
+                            </div>
+                            <a href="#">Создать цикл</a>
+                        </div>
+                        <div class="block-button">
+                            <button type="button" @click="isCheck">test (удалить)</button>
+                            <button type="button" @click="resetForm">Очистить</button>
+                            <button type="submit">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    @@include('../footer.html')
+</div>
+</body>
+</html>

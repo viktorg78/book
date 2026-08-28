@@ -161,9 +161,14 @@ function Build(done){
    done();
 }
 
+function vendorLibs () {
+    return src('node_modules/vue/dist/vue.global.prod.js')
+        .pipe(rename('vue.js')) // Переименуем для удобства
+        .pipe(dest(paths.destLibs));
+}
 
 // Основная задача для разработки
-const dev = series(buildHtml, buildStyles, cssMin ,browserSyncServe, watchFiles);
+const dev = series(vendorLibs, buildHtml, buildStyles, cssMin ,browserSyncServe, watchFiles);
 
 // Сборка проекта
 const build = series(clean, img, buildStyles, minifyHtml, Build)
@@ -180,6 +185,7 @@ export {
    clear,
    buildHtml,
    minifyHtml,
+   vendorLibs,
    build,
    dev as default
 };
