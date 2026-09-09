@@ -3,28 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Книга [Добавить главу 2]</title>
-    <link rel="stylesheet" href="css/main.min.css">
-    <script src="js/close-modal-entry.js" defer></script>
+    <!-- Локальные стили из вашей сборки Gulp -->
+    <link rel="stylesheet" href="/css/quill.snow.css">
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <!-- Локальные библиотеки из вашей папки libs -->
+    <script src="/libs/vue.js"></script>
+    <script src="/libs/quill.js"></script>
+    <script src="/libs/vue-quill.global.prod.js"></script>
+    <script src="/js/addChapter.js" defer></script>
+    <script src="/js/close-modal-entry.js" defer></script>
 </head>
 <body>
-<div class="page">
+<div class="page" id="app">
     @@include('../header.html')
     <main class="main">
-        <div class="heading">Добавить главу</div>
-        <form>
-            <div class="block-input">
+        <!-- Модальное окно ошибок -->
+        @@include('../messageError.html')
+        <!-- Конец Модальное окна -->
 
-                <div>
-                    <label for="nameBook">Название книги:</label>
-                    <input type="text" >
+        <!-- Модальное окно оповещений -->
+        @@include('../messageNotification.html')
+        <!-- Конец Модальное оповещений -->
+
+        <div class="add-book">
+            <!-- Добавлено прерывание стандартной отправки @submit.prevent -->
+            <form id="formNewBook" @submit.prevent="saveChapter">
+                <div class="cart-book">
+                    <div class="block-input">
+                        <div>
+                            <label for="nameBook">Название главы:</label>
+                            <input type="text" id="nameBook" v-model="nameChapter">
+                        </div>
+                        <div>
+                            <label>Текст главы</label><br>
+                            <!-- Динамический счетчик символов -->
+                            <label>{{ characterCountText }}</label>
+
+                            <!-- Компонент Quill редактора вместо старого textarea -->
+                            <quill-editor
+                                    v-model:content="textChapter"
+                                    content-type="html"
+                                    :options="editorOptions"
+                                    theme="snow">
+                            </quill-editor>
+                        </div>
+                        <div class="block-button">
+                            <button type="button" @click="isCheck">test (удалить)</button>
+                            <button type="button" @click="resetForm">Очистить</button>
+                            <button type="submit">Сохранить</button>
+                        </div>
+                    </div>
                 </div>
-            <textarea>
-                текст главы
-            </textarea>
-            <input type="submit" value="Сохранить">
-            <input type="reset" value="Стереть">
-            </div>
-        </form>
+            </form>
+        </div>
     </main>
     @@include('../footer.html')
 </div>
