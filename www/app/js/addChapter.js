@@ -6,12 +6,13 @@ const app = createApp({
     setup() {
         const nameChapter = ref('Глава 1')
         const textChapter = ref('')
-        const published = ref(false)
         const chapters = ref([
-            {id: '1', value: 'Глава 1'},
-            {id: '2', value: 'Глава 2'},
-            {id: '3', value: 'Глава 3'},
-            {id: '4', value: 'Глава 4'},
+            {id: '1', value: 'Глава 1', published: false},
+            {id: '2', value: 'Глава 2', published:true},
+            {id: '3', value: 'Глава 3', published: false},
+            {id: '4', value: 'Глава 4', published: false},
+            {id: '5', value: 'Глава 5', published:true},
+            {id: '6', value: 'Глава 6', published:true},
         ])
 
         const myEditor = ref(null);
@@ -63,15 +64,40 @@ const app = createApp({
             }
         };
 
+        const moveUp = index => {
+            if (index === 0) return
+            const temp = chapters.value[index]
+            chapters.value[index] = chapters.value[index -1]
+            chapters.value[index -1] = temp
+        }
+
+        const moveDown = index => {
+            if (index === chapters.value.length - 1) return
+            const temp = chapters.value[index]
+            chapters.value[index] = chapters.value[index +1]
+            chapters.value[index +1] = temp
+        }
+
+        const deleteChapter = id =>{
+            chapters.value = chapters.value.filter(ch => ch.id !== id)
+        }
+
+        const editChapter = chapter => {
+            console.log('Редактируем: ', chapter)
+        }
+
         return {
             nameChapter,
             textChapter,
             myEditor,
             editorOptions,
             characterCountText,
-            published,
             chapters,
-            resetForm
+            resetForm,
+            moveUp,
+            moveDown,
+            deleteChapter,
+            editChapter
         };
     }
 });

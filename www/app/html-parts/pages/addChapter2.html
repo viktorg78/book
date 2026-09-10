@@ -28,63 +28,44 @@
 
         <div class="chapters">
             <ul>
-                <li>
+                <li v-for="(chapter, index) in chapters" :key="chapter.id">
                     <div class="block-up-down">
-                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
+                        <button
+                                v-if="index > 0"
+                                class="tooltip-btn"
+                                data-tooltip="вверх"
+                                @click="moveUp(index)"
+                        >
+                            <img src="img/up.png" alt="вверх">
+                        </button>
+                        <button
+                                v-if="index < chapters.length -1"
+                                class="tooltip-btn"
+                                data-tooltip="Вниз"
+                                @click="moveDown(index)"
+                        >
+                            <img src="img/down.png" alt="Вниз">
+                        </button>
                     </div>
-                    Яблоко dsfsdfsdfsdf
+                    {{chapter.value}}
                     <div class="block-button">
-                        <div class="status published">
-                            Опубликована
+                        <div :class="['status', chapter.published ? 'published':'draft']">
+                            {{chapter.published ? 'Опубликована':'Черновик'}}
+
                         </div>
-                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
+                        <button
+                                class="tooltip-btn"
+                                data-tooltip="Изменить"
+                                @click = editChapter(chapter)
+                        >
+                            <img src="img/edits.png" alt="Изменить">
                         </button>
-                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div class="block-up-down">
-                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
-                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
-                    </div>
-                    Молоко Вода
-                    <div class="block-button">
-                        <div class="status published">
-                            Опубликована
-                        </div>
-                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
-                        </button>
-                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div class="block-up-down">
-                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
-                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
-                    </div>
-                    Молоко
-                    <div class="block-button">
-                        <div class="status draft">
-                            Черновик
-                        </div>
-                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
-                        </button>
-                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
-                        </button>
-                    </div>
-                </li>
-                <li>
-                    <div class="block-up-down">
-                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
-                    </div>
-                    Хлеб
-                    <div class="block-button">
-                        <div class="status draft">Черновик</div>
-                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
-                        </button>
-                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
+                        <button
+                                class="tooltip-btn"
+                                data-tooltip="Удалить"
+                                @click = deleteChapter(chapter.id)
+                        >
+                            <img src="img/del.png" alt="Удалить">
                         </button>
                     </div>
                 </li>
