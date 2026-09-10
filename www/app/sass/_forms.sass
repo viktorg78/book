@@ -1,3 +1,5 @@
+@use "mixins" as *
+@use "variables" as *
 // Стили для визуального редактора Quill
 .ql-toolbar.ql-snow
   background-color: #ffffff
@@ -13,3 +15,34 @@
   color: black
   border-bottom-left-radius: 5px  // Скругление нижнего левого угла
   border-bottom-right-radius: 5px // Скругление нижнего правого угла
+
+// подсказка кнопки
+.tooltip-btn
+  position: relative
+  cursor: pointer
+
+  &::after
+    content: attr(data-tooltip)
+    position: absolute
+    bottom: 100%
+    left: 90%
+    transform: translateX(-50%) translateY(.3rem)
+    background-color: $tooltip-bg
+    color: $tooltip-color
+    padding: .2rem .5rem
+    border-radius: 5px
+    font-size: .5em
+    white-space: nowrap
+    letter-spacing: 0
+    opacity: 0
+    visibility: hidden
+    pointer-events: none
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s
+
+  &:hover
+    &::after
+      opacity: 1
+      visibility: visible
+      transform: translateX(-50%) translateY(0) // Плавно поднимается на свое место
+
+

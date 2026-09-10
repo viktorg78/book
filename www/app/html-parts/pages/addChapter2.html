@@ -26,7 +26,72 @@
         @@include('../messageNotification.html')
         <!-- Конец Модальное оповещений -->
 
-        <div class="add-book">
+        <div class="chapters">
+            <ul>
+                <li>
+                    <div class="block-up-down">
+                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
+                    </div>
+                    Яблоко dsfsdfsdfsdf
+                    <div class="block-button">
+                        <div class="status published">
+                            Опубликована
+                        </div>
+                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
+                        </button>
+                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="block-up-down">
+                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
+                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
+                    </div>
+                    Молоко Вода
+                    <div class="block-button">
+                        <div class="status published">
+                            Опубликована
+                        </div>
+                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
+                        </button>
+                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="block-up-down">
+                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
+                        <button class="tooltip-btn" data-tooltip="Вниз"><img src="img/down.png" alt="Вниз"></button>
+                    </div>
+                    Молоко
+                    <div class="block-button">
+                        <div class="status draft">
+                            Черновик
+                        </div>
+                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
+                        </button>
+                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
+                        </button>
+                    </div>
+                </li>
+                <li>
+                    <div class="block-up-down">
+                        <button class="tooltip-btn" data-tooltip="Вверх"><img src="img/up.png" alt="Вверх"></button>
+                    </div>
+                    Хлеб
+                    <div class="block-button">
+                        <div class="status draft">Черновик</div>
+                        <button class="tooltip-btn" data-tooltip="Изменить"><img src="img/edits.png" alt="Изменить">
+                        </button>
+                        <button class="tooltip-btn" data-tooltip="Удалить"><img src="img/del.png" alt="Удалить">
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="add-book addChapter">
             <!-- Добавлено прерывание стандартной отправки @submit.prevent -->
             <form id="formNewBook" @submit.prevent="saveChapter">
                 <div class="cart-book">
@@ -36,12 +101,13 @@
                             <input type="text" id="nameBook" v-model="nameChapter">
                         </div>
                         <div>
-                            <label>Текст главы</label><br>
+
                             <!-- Динамический счетчик символов -->
-                            <label>{{ characterCountText }}</label>
+                            <label>Текст главы. {{ characterCountText }}</label>
 
                             <!-- Компонент Quill редактора вместо старого textarea -->
                             <quill-editor
+                                    ref="myEditor"
                                     v-model:content="textChapter"
                                     content-type="html"
                                     :options="editorOptions"
@@ -49,7 +115,18 @@
                             </quill-editor>
                         </div>
                         <div class="block-button">
-                            <button type="button" @click="isCheck">test (удалить)</button>
+                                <div class="form_toggle">
+                                    <fieldset class="toggle_group">
+                                        <div class="form_toggle-item item-1">
+                                            <input id="fid-1" type="radio" name="toggle" value="off" checked>
+                                            <label for="fid-1">Черновик</label>
+                                        </div>
+                                        <div class="form_toggle-item item-2">
+                                            <input id="fid-2" type="radio" name="toggle" value="on">
+                                            <label for="fid-2">Опубликована</label>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             <button type="button" @click="resetForm">Очистить</button>
                             <button type="submit">Сохранить</button>
                         </div>

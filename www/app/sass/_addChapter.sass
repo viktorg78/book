@@ -1,0 +1,57 @@
+@use "mixins" as *
+@use "variables" as *
+
+.addChapter
+
+  form
+    min-width: 100%
+
+    .cart-book
+      min-width: 100%
+
+      .block-input
+        min-width: 100%
+
+.chapters
+
+  ul
+    width: fit-content
+    margin: 0 auto
+    li
+      background-color: $inputBackgroundColor
+      border: 1px solid $inputBorder
+      border-radius: 5px
+      padding: .3rem 1rem
+      display: flex
+      align-items: center
+      gap: 1rem
+      justify-content: space-between
+      .block-button
+        display: flex
+        align-items: center
+        gap: .5rem
+      .block-up-down
+        display: flex
+        flex-direction: column
+        flex-wrap: nowrap
+        justify-content: center
+        align-items: center
+        gap: .3rem
+        img
+          height: .8rem
+      button
+        @include button1
+        padding: 0.2rem 0.5rem
+        img
+          height: 1.2rem
+
+      .status
+        border: 1px
+        padding: 0.2rem 0.5rem
+        border-radius: 0.5rem
+      .published
+        background-color: $chapters-published-background-color
+      .draft
+        background-color: $chapters-draft-background-color
+
+

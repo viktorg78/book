@@ -1,4 +1,4 @@
-// Добавить главу к книге
+
 
 const {createApp, ref, computed} = Vue;
 
@@ -6,22 +6,26 @@ const app = createApp({
     setup() {
         const nameChapter = ref('Глава 1')
         const textChapter = ref('')
+        const published = ref(false)
+        const chapters = ref([
+            {id: '1', value: 'Глава 1'},
+            {id: '2', value: 'Глава 2'},
+            {id: '3', value: 'Глава 3'},
+            {id: '4', value: 'Глава 4'},
+        ])
 
+        const myEditor = ref(null);
         const editorOptions = {
             modules: {
                 toolbar: [
                     // Группа 1: Жирный, Курсив, Подчеркнутый, Зачеркнутый
                     ['bold', 'italic', 'underline', 'strike'],
-
                     // Группа 2: Выравнивание текста (лево, центр, право, по ширине)
                     [{ 'align': [] }],
-
                     // Группа 3: Заголовки (полезно для подзаголовков внутри главы)
                     [{ 'header': [1, 2, 3, false] }],
-
                     // Группа 4: Списки (нумерованный и маркированный)
                     // [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-
                     // Группа 5: Очистить форматирование (удаляет выделение, если текст скопирован откуда-то)
                     ['clean']
                 ]
@@ -54,13 +58,19 @@ const app = createApp({
         const resetForm = () => {
             nameChapter.value = '';
             textChapter.value = '';
+            if (myEditor.value) {
+                myEditor.value.setHTML('');
+            }
         };
 
         return {
             nameChapter,
             textChapter,
+            myEditor,
             editorOptions,
             characterCountText,
+            published,
+            chapters,
             resetForm
         };
     }
