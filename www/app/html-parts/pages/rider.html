@@ -4,20 +4,24 @@
     <meta charset="UTF-8">
     <title>Книга [Читалка]</title>
     <link rel="stylesheet" href="css/reider.min.css">
+    <script src="/libs/vue.js"></script>
+    <script src="/js/rider.js" defer></script>
 </head>
-<body>
-<div class="sidebar" id="open">
-    <a href="#close" class="css-close" id="close" title="Закрыть">&times;</a>
-    <h2>Оглавление.</h2>
+<body id="app">
+<div class="sidebar" :class="{ active: isSidebarOpen }" ref="sidebarRef">
+    <a href="#" class="css-close" title="Закрыть" @click.prevent="toggleSidebar(false)">&times;</a>
+
+    <h2>Содержание</h2>
     <ul>
-        <li><a href="#">Глава 1. Введение</a></li>
-        <li><a href="#">Глава 2. Введение</a></li>
-        <li><a href="#">Глава 3. Введение</a></li>
+        <li v-for="val in content" :key="val.id">
+            <a href="#" @click.prevent="selectChapter(val); toggleSidebar(false)">{{ val.content }}</a>
+        </li>
     </ul>
 </div>
 <header>
     <div class="block-link">
-        <a href="#open" class="link-rider">
+        <a href="#" class="link-rider link-rider-content" @click.prevent="toggleSidebar(true)">
+
             <img src="/img/content.png">
             <div>Содержание</div>
         </a>
@@ -30,13 +34,21 @@
     </div>
     <div class="block-link">
         <div>
-            <button class="link-rider" id="increaseBrightness">
+            <button
+                    class="link-rider"
+                    @click="increaseBrightness"
+                    :disabled="isMaxBrightness"
+            >
                 <img src="/img/brightness.png">
                 <div>
                     +
                 </div>
             </button>
-            <button class="link-rider" id="reduceBrightness">
+            <button
+                    class="link-rider"
+                    @click="reduceBrightness"
+                    :disabled="isMinBrightness"
+            >
                 <img src="/img/brightness2.png">
                 <div>
                     -
@@ -44,10 +56,18 @@
             </button>
         </div>
         <div>
-            <button class="link-rider" id="fontPlus">
+            <button
+                    class="link-rider"
+                    @click="increaseFont"
+                    :disabled="isMaxFont"
+            >
                 <img src="/img/fonts.png">
             </button>
-            <button class="link-rider" id="fontMinus">
+            <button
+                    class="link-rider"
+                    @click="reduceFont"
+                    :disabled="isMinFont"
+            >
                 <img src="/img/fonts1.png">
             </button>
         </div>
@@ -55,137 +75,9 @@
     </div>
 
 </header>
-<main id="text">
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    <br>
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    <br>
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
-    текст текст текст тексттекст текст текст тексттекст тексттекст тексттекст тексттекст тексттекст тексттекст
-    тексттекст тексттекст текст
+<main id="text" :style="currentStyle">
+    <h3>{{ currentChapter.content }}</h3>
+    {{ currentChapter.text }}
 </main>
-<script>
-    document.addEventListener('click', e => {
-        const open = document.getElementById('open')
-        const close = document.getElementById('close')
-        if (!open.contains(e.target)) {
-            close.click()
-        }
-    })
-
-    const fontPlus = document.getElementById('fontPlus');
-    const fontMinus = document.getElementById('fontMinus');
-    const text = document.getElementById('text');
-    fontMinus.addEventListener('click', () => {
-        let style = window.getComputedStyle(text, null).getPropertyValue('font-size');
-        let currentSize = parseFloat(style);
-        if (currentSize > 10){
-            text.style.fontSize = (currentSize - 2) + 'px';
-            fontPlus.disabled = false;
-        }else {
-            fontMinus.disabled = true;
-        }
-
-
-    });
-    fontPlus.addEventListener('click', () => {
-        let style = window.getComputedStyle(text, null).getPropertyValue('font-size');
-        let currentSize = parseFloat(style);
-        if (currentSize < 30) {
-            text.style.fontSize = (currentSize + 2) + 'px';
-            fontMinus.disabled = false;
-        }
-        else {
-            fontPlus.disabled = true;
-        }
-    })
-
-    const increaseBrightness = document.getElementById('increaseBrightness');
-    const reduceBrightness = document.getElementById('reduceBrightness');
-    let positionBrightness = 3;
-    const positionStyle = [
-        {color: "#2e8c3e", backgroundColor: "#000000"},
-        {color: "#ffffff", backgroundColor: "#000000"},
-        {color: "#6d4231", backgroundColor: "#f5efdd"},
-        {color: "#444444", backgroundColor: "#faf8f2"},
-        {color: "#444444", backgroundColor: "#ffffff"},
-    ]
-
-    increaseBrightness.addEventListener("click", () => {
-       if (positionBrightness !== 4){
-           positionBrightness++
-           text.style.backgroundColor = positionStyle[positionBrightness].backgroundColor
-           text.style.color = positionStyle[positionBrightness].color
-           reduceBrightness.disabled = false
-       }
-       else increaseBrightness.disabled = true
-
-        //console.log("+"+positionBrightness)
-    })
-
-    reduceBrightness.addEventListener("click", () => {
-       if (positionBrightness !== 0){
-           positionBrightness--
-           text.style.backgroundColor = positionStyle[positionBrightness].backgroundColor
-           text.style.color = positionStyle[positionBrightness].color
-           increaseBrightness.disabled = false
-       }
-       else reduceBrightness.disabled = true
-
-       // console.log("-"+positionBrightness)
-    })
-
-
-
-</script>
 </body>
 </html>

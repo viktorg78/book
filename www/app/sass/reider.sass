@@ -1,8 +1,10 @@
 @use "reset"
 @use "mixins" as *
 @use "variables" as *
+
 body
   position: relative
+
 .sidebar
   background-color: $rider-sidebar-background-color
   position: fixed
@@ -14,12 +16,14 @@ body
   padding-top: 1rem
   padding-left: 1rem
   padding-right: 2.5rem
-  transition: transform 5s ease-in-out /* Плавность */
+  transition: transform 0.3s ease-in-out /* Исправлено: 0.3s вместо 5s для комфортной скорости */
   transform: translateX(-100%) /* Прячем за левый край */
   color: $rider-sidebar-color
-  &:target
-    //background-color: #2e7d32
+
+  /* Изменено: теперь реагирует на класс active от Vue */
+  &.active
     transform: translateX(0) /* Выезжает */
+
   > .css-close
     position: absolute
     top: 5px
@@ -27,6 +31,7 @@ body
     font-size: 2em
     cursor: pointer
     color: $colorText
+
 header
   display: flex
   flex-flow: nowrap row
@@ -41,12 +46,14 @@ main
   background-color: $rider-main-background-color
   min-height: 100vh
   user-select: none
+
 .block-link
   display: inline-flex
   flex-flow: nowrap row
   align-items: center
   gap: 0.8rem
   padding: 0.5rem 1.5rem
+
 .link-rider
   height: 2.2rem
   box-sizing: border-box
@@ -69,4 +76,3 @@ main
     height: 2rem
   > div
     color: $link-rider-color
-
