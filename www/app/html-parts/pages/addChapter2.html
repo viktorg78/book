@@ -26,44 +26,68 @@
         @@include('../messageNotification.html')
         <!-- Конец Модальное оповещений -->
 
+        <!-- Модальное окно удаления главы -->
+        <div class="css-modal-target" id="modal-del-chapter">
+            <div class="cmt">
+                <a href="#close" class="css-modal-close" id="close-modal-del-chapter" title="Закрыть">&times;</a>
+                <form id="formDelChapter" @submit.prevent>
+                    <div class="formEmpty" v-if="chapterToDelete">
+                        <h3>УДАЛИТЬ ГЛАВУ</h3>
+                        {{ chapterToDelete.value }}
+                        <button
+                                type="button"
+                                @click=deleteChapter
+                        >
+                            удалить
+                        </button>
+                    </div>
+                </form>
+                <div id="text-del-chapter"></div>
+
+            </div>
+        </div>
+        <!-- Конец Модальное окна -->
+
         <div class="chapters">
             <ul>
                 <li v-for="(chapter, index) in chapters" :key="chapter.id">
-                    <div class="block-up-down">
-                        <button
-                                v-if="index > 0"
-                                class="tooltip-btn"
-                                data-tooltip="вверх"
-                                @click="moveUp(index)"
-                        >
-                            <img src="img/up.png" alt="вверх">
-                        </button>
-                        <button
-                                v-if="index < chapters.length -1"
-                                class="tooltip-btn"
-                                data-tooltip="Вниз"
-                                @click="moveDown(index)"
-                        >
-                            <img src="img/down.png" alt="Вниз">
-                        </button>
+                    <div class="block-button">
+                        <div class="block-up-down">
+                            <button
+                                    v-if="index > 0"
+                                    class="tooltip-btn"
+                                    data-tooltip="вверх"
+                                    @click="moveUp(index)"
+                            >
+                                <img src="img/up.png" alt="вверх">
+                            </button>
+                            <button
+                                    v-if="index < chapters.length -1"
+                                    class="tooltip-btn"
+                                    data-tooltip="Вниз"
+                                    @click="moveDown(index)"
+                            >
+                                <img src="img/down.png" alt="Вниз">
+                            </button>
+                        </div>
+                        {{ chapter.value }}
                     </div>
-                    {{chapter.value}}
                     <div class="block-button">
                         <div :class="['status', chapter.published ? 'published':'draft']">
-                            {{chapter.published ? 'Опубликована':'Черновик'}}
+                            {{ chapter.published ? 'Опубликована' : 'Черновик' }}
 
                         </div>
                         <button
                                 class="tooltip-btn"
                                 data-tooltip="Изменить"
-                                @click = editChapter(chapter)
+                                @click=editChapter(chapter)
                         >
                             <img src="img/edits.png" alt="Изменить">
                         </button>
                         <button
                                 class="tooltip-btn"
                                 data-tooltip="Удалить"
-                                @click = deleteChapter(chapter.id)
+                                @click=prepareDelete(chapter)
                         >
                             <img src="img/del.png" alt="Удалить">
                         </button>
@@ -73,7 +97,7 @@
         </div>
 
         <div class="add-book addChapter">
-            <!-- Добавлено прерывание стандартной отправки @submit.prevent -->
+            {{ chapterDel }}
             <form id="formNewBook" @submit.prevent="saveChapter">
                 <div class="cart-book">
                     <div class="block-input">
@@ -96,18 +120,18 @@
                             </quill-editor>
                         </div>
                         <div class="block-button">
-                                <div class="form_toggle">
-                                    <fieldset class="toggle_group">
-                                        <div class="form_toggle-item item-1">
-                                            <input id="fid-1" type="radio" name="toggle" value="off" checked>
-                                            <label for="fid-1">Черновик</label>
-                                        </div>
-                                        <div class="form_toggle-item item-2">
-                                            <input id="fid-2" type="radio" name="toggle" value="on">
-                                            <label for="fid-2">Опубликована</label>
-                                        </div>
-                                    </fieldset>
-                                </div>
+                            <div class="form_toggle">
+                                <fieldset class="toggle_group">
+                                    <div class="form_toggle-item item-1">
+                                        <input id="fid-1" type="radio" name="toggle" value="off" checked>
+                                        <label for="fid-1">Черновик</label>
+                                    </div>
+                                    <div class="form_toggle-item item-2">
+                                        <input id="fid-2" type="radio" name="toggle" value="on">
+                                        <label for="fid-2">Опубликована</label>
+                                    </div>
+                                </fieldset>
+                            </div>
                             <button type="button" @click="resetForm">Очистить</button>
                             <button type="submit">Сохранить</button>
                         </div>

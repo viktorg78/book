@@ -10,10 +10,12 @@ const app = createApp({
             {id: '1', value: 'Глава 1', published: false},
             {id: '2', value: 'Глава 2', published:true},
             {id: '3', value: 'Глава 3', published: false},
-            {id: '4', value: 'Глава 4', published: false},
-            {id: '5', value: 'Глава 5', published:true},
+            {id: '4', value: 'Глава 4 о пользе разума', published: false},
+            {id: '5', value: 'Глава 5 о вреде излишеств', published:true},
             {id: '6', value: 'Глава 6', published:true},
         ])
+
+        const chapterToDelete = ref(null);
 
         const myEditor = ref(null);
         const editorOptions = {
@@ -78,8 +80,16 @@ const app = createApp({
             chapters.value[index +1] = temp
         }
 
-        const deleteChapter = id =>{
-            chapters.value = chapters.value.filter(ch => ch.id !== id)
+        const prepareDelete = chapter =>{
+            chapterToDelete.value = chapter
+            window.location.hash = '#modal-del-chapter'
+        }
+
+        const deleteChapter = () =>{
+            if (!chapterToDelete.value) return
+            chapters.value = chapters.value.filter(ch => ch.id !== chapterToDelete.value.id)
+            chapterToDelete.value = null
+            window.location.hash = '#close'
         }
 
         const editChapter = chapter => {
@@ -93,11 +103,13 @@ const app = createApp({
             editorOptions,
             characterCountText,
             chapters,
+            chapterToDelete,
             resetForm,
             moveUp,
             moveDown,
             deleteChapter,
-            editChapter
+            editChapter,
+            prepareDelete
         };
     }
 });
