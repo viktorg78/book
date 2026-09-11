@@ -96,6 +96,17 @@ const app = createApp({
             console.log('Редактируем: ', chapter)
         }
 
+        const textNotification = ref('<img class="img-modal" src="/img/ris1.png">')
+        const nameNotification = ref('ОПОВЕЩЕНИЕ')
+        const openImg = () =>{
+            nameNotification.value = 'РИСУНОК'
+            window.location.hash = '#modal-notification'
+        }
+
+        const closeModal = () => {
+            window.location.hash = '#close' // Сбрасываем хэш, чтобы сработал CSS-эффект закрытия
+        }
+
         return {
             nameChapter,
             textChapter,
@@ -109,7 +120,11 @@ const app = createApp({
             moveDown,
             deleteChapter,
             editChapter,
-            prepareDelete
+            prepareDelete,
+            openImg,
+            textNotification,
+            closeModal,
+            nameNotification
         };
     }
 });

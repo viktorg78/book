@@ -105,6 +105,24 @@
                             <label for="nameBook">Название главы:</label>
                             <input type="text" id="nameBook" v-model="nameChapter">
                         </div>
+
+                        <div class="imageChapter">
+                            <label for="imageChapter">Рисунок в начале главы</label>
+                            <div class="imageChapterLine">
+                            <button v-if="textNotification"
+                                    class="tooltip-btn"
+                                    data-tooltip="Посмотреть рисунок"
+                                    @click.prevent="openImg"
+                            >
+                                <img src="/img/see.png" alt="Посмотреть рисунок">
+                            </button>
+                            <input
+                                id="imageChapter"
+                                type="file"
+                                accept="image/png, image/jpeg"
+                            >
+                            </div>
+                        </div>
                         <div>
 
                             <!-- Динамический счетчик символов -->
