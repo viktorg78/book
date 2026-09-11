@@ -2,6 +2,7 @@ const {createApp, ref, computed, onMounted, onUnmounted} = Vue;
 
 const app = createApp({
     setup() {
+        const nameBook = ref('Название книги')
         const content = ref([
             {
                 id: 1,
@@ -100,6 +101,14 @@ const app = createApp({
             document.removeEventListener('click', handleClickOutside);
         });
 
+        const triggerNotification = () => {
+            setTimeout(() => {
+                if (window.location.hash === '#modal-notification') {
+                    window.location.hash = '#close';
+                }
+            }, 3000);
+        };
+
         return {
             content,
             currentChapter,
@@ -115,7 +124,9 @@ const app = createApp({
             isMinFont,
             isSidebarOpen,
             sidebarRef,
-            toggleSidebar
+            toggleSidebar,
+            nameBook,
+            triggerNotification
         }
     }
 })

@@ -8,6 +8,20 @@
     <script src="/js/rider.js" defer></script>
 </head>
 <body id="app">
+
+<!-- Модальное окно оповещений -->
+<div class="css-modal-target" id="modal-notification">
+    <div class="cmt" id="windowBody">
+        <a href="#close" class="css-modal-close" id="close-modal-notification" title="Закрыть">&times;</a>
+        <div class="heading-notification">
+            ОПОВЕЩЕНИЕ
+        </div>
+        <div id="textNotification">Произведение <b>{{nameBook}}</b> добавленно в вашу библиотеку.</div>
+    </div>
+</div>
+<!--<a href="#modal-notification" id="openModalNotification">Открыть окно оповещения</a>-->
+<!-- Конец Модальное оповещений -->
+
 <div class="sidebar" :class="{ active: isSidebarOpen }" ref="sidebarRef">
     <a href="#" class="css-close" title="Закрыть" @click.prevent="toggleSidebar(false)">&times;</a>
 
@@ -28,7 +42,7 @@
         <a href="../" class="link-rider">
             <div>Вернуться на сайт</div>
         </a>
-        <a href="#" class="link-rider">
+        <a href="#modal-notification" class="link-rider" @click="triggerNotification">
             <div>+ Добавить в библиотеку</div>
         </a>
     </div>
