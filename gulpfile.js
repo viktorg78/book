@@ -1,4 +1,4 @@
-// Импорт модулей Gulp
+// Импорт модулей Gulp.
 import { series, src, dest, watch, parallel } from 'gulp';
 
 // Импорт плагинов
